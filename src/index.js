@@ -1,4 +1,6 @@
 import './style.css';
+import { Player } from './classes/Player';
+import { Projectile } from './classes/Projectile';
 
 const viewport = document.getElementById("viewport");
 const ctx = viewport.getContext("2d");
@@ -16,23 +18,42 @@ viewport.style.height = viewportHeight + 'px';
 
 ctx.scale(viewportScale, viewportScale);
 
-CanvasRenderingContext2D.prototype.drawCircle =
-    function(x, y, radius, style="#ffffff") {
-        this.beginPath();
 
-        // ---
-        // | Circle's center.
-        // ----- v -v
-        this.arc(x, y, radius, 0, 2.0 * Math.PI);
-        // ------------------- ^ -^-----------^
-        // | Range at which the circle starts and ends, in radians.
-        // |
-        // | By manipulating these two parameters you can e.g. draw
-        // | only half of a circle, Pac-Man style.
-        // ---
+const player = new Player(viewportWidth / 2, viewportHeight / 2, 20, "green")
 
-        this.fillStyle = style;
-        this.fill();
-    };
 
-  ctx.drawCircle(100, 100, 20, "#FF0000");
+
+
+
+const projectiles = [];
+
+
+viewport.addEventListener('click', (event) => {
+
+    const angle = Math.atan2(event.offsetY - viewportHeight / 2, event.offsetX - viewportWidth / 2);
+    const velocity = {
+        x: Math.cos(angle),
+        y: Math.sin(angle)
+    }
+    console.log(angle);
+    projectiles.push(new Projectile(viewportWidth / 2, viewportHeight / 2, 5, 'red', velocity))
+
+})
+
+
+
+function animate() {
+    ctx.clearRect(0, 0, viewportWidth, viewportHeight);
+    requestAnimationFrame(animate);
+    player.draw(ctx);
+    console.log("go");
+    projectiles.forEach(projectile => {
+        projectile.update(ctx)
+
+    });
+
+}
+
+animate();
+
+
