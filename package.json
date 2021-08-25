@@ -1,0 +1,21 @@
+{
+  "name": "simple-platformer",
+  "version": "1.0.0",
+  "description": "A simple platformer",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "contributors": [
+    {
+      "name": "Hunter Marshall",
+      "email": "beidah@gmail.com"
+    }
+  ],
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^5.51.1",
+    "webpack-cli": "^4.8.0"
+  }
+}
