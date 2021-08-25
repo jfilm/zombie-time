@@ -19,29 +19,41 @@ viewport.style.height = viewportHeight + 'px';
 ctx.scale(viewportScale, viewportScale);
 
 
+
+
+//Creat a new player
 const player = new Player(viewportWidth / 2, viewportHeight / 2, 20, "green")
 
 
 
 
-
+//Array that contains all projectiles (bullets)
 const projectiles = [];
+
+// Need to realise function that deletes projectiles that fly out of the field
+// function clearProjectilesArray() {}
+
+
 
 
 viewport.addEventListener('click', (event) => {
 
+    //Calculate angle of projectile speed vector.
     const angle = Math.atan2(event.offsetY - viewportHeight / 2, event.offsetX - viewportWidth / 2);
+    //Get speed by axis in form of object {x, y}
     const velocity = {
         x: Math.cos(angle),
         y: Math.sin(angle)
     }
-    console.log(angle);
+    // Add new projectile to the array
     projectiles.push(new Projectile(viewportWidth / 2, viewportHeight / 2, 5, 'red', velocity))
 
 })
 
 
 
+
+// Canvas refresher (please rewrite this comment, I don't know how to call this function 😅)
 function animate() {
     ctx.clearRect(0, 0, viewportWidth, viewportHeight);
     requestAnimationFrame(animate);
@@ -53,7 +65,6 @@ function animate() {
     });
 
 }
-
 animate();
 
 
