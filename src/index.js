@@ -34,3 +34,5 @@ CanvasRenderingContext2D.prototype.drawCircle =
         this.fillStyle = style;
         this.fill();
     };
+
+  ctx.drawCircle(100, 100, 20, "#FF0000");
