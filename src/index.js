@@ -27,8 +27,7 @@ const player = new Player(viewportWidth / 2, viewportHeight / 2, 20, "blue")
 //Array that contains all projectiles (bullets)
 const projectiles = [];
 
-// Need to realise function that deletes projectiles that fly out of the field
-// function clearProjectilesArray() {}
+
 
 
 
@@ -78,7 +77,7 @@ function spawnEnemies() {
             y: Math.sin(angle)
         }
         enemies.push(new Enemy(x, y, radius, color, velocity))
-    }, 1000)
+    }, 10000)
 
 
 }
@@ -93,9 +92,17 @@ function animate() {
     ctx.clearRect(0, 0, viewportWidth, viewportHeight);
     animationId = requestAnimationFrame(animate);
     player.draw(ctx);
-    // console.log("go");
-    projectiles.forEach(projectile => {
+
+    //Deletes projectiles that fly out of the field
+    projectiles.forEach((projectile, i) => {
         projectile.update(ctx)
+        if (projectile.x + projectile.radius < 0 || projectile.y + projectile.radius < 0
+            || projectile.x - projectile.radius > viewportWidth || projectile.y - projectile.radius > viewportHeight) {
+            setTimeout(() => {
+                projectiles.splice(i, 1)
+            }, 0)
+
+        }
 
     });
 
@@ -118,7 +125,7 @@ function animate() {
             const dist = Math.hypot(projectile.x - enemy.x, projectile.y - enemy.y);
 
             if (dist - enemy.radius - projectile.radius < 1) {
-                // Use set time out to get rid of flashing that appears when enemy is deleting
+                // Use set time out to get rid of flashing that appears when object is deleting
                 setTimeout(() => {
                     enemies.splice(i, 1)
                     projectiles.splice(j, 1)
