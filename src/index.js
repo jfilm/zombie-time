@@ -96,8 +96,24 @@ function animate() {
         projectile.update(ctx)
 
     });
-    enemies.forEach(enemy => {
+
+
+    //Check collision between a projectile and an enemy and remove both from arrays if they collide 
+    enemies.forEach((enemy, i) => {
         enemy.update(ctx)
+        projectiles.forEach((projectile, j) => {
+
+            const dist = Math.hypot(projectile.x - enemy.x, projectile.y - enemy.y);
+
+            if (dist - enemy.radius - projectile.radius < 1) {
+                // Use set time out to get rid of flashing that appears when enemy is deleting
+                setTimeout(() => {
+                    enemies.splice(i, 1)
+                    projectiles.splice(j, 1)
+                }, 0)
+
+            }
+        })
 
     });
 
