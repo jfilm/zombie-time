@@ -1,3 +1,5 @@
+import './style.css';
+
 const viewport = document.getElementById("viewport");
 const ctx = viewport.getContext("2d");
 
