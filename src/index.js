@@ -86,10 +86,12 @@ spawnEnemies()
 
 
 
+let animationId;
+
 // Canvas refresher (please rewrite this comment, I don't know how to call this function 😅)
 function animate() {
     ctx.clearRect(0, 0, viewportWidth, viewportHeight);
-    requestAnimationFrame(animate);
+    animationId = requestAnimationFrame(animate);
     player.draw(ctx);
     // console.log("go");
     projectiles.forEach(projectile => {
@@ -101,8 +103,18 @@ function animate() {
     //Check collision between a projectile and an enemy and remove both from arrays if they collide 
     enemies.forEach((enemy, i) => {
         enemy.update(ctx)
-        projectiles.forEach((projectile, j) => {
 
+        // A distance between a player and an enemy
+        const dist = Math.hypot(player.x - enemy.x, player.y - enemy.y);
+
+        if (dist - enemy.radius - player.radius < 1) {
+            cancelAnimationFrame(animationId)
+            console.log("end game");
+
+        }
+
+        projectiles.forEach((projectile, j) => {
+            //A distance between a projectile and an enemy
             const dist = Math.hypot(projectile.x - enemy.x, projectile.y - enemy.y);
 
             if (dist - enemy.radius - projectile.radius < 1) {
