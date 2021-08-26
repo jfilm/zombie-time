@@ -52,6 +52,13 @@ export class GameManager{
     this.player.setVelocity(1 * (right - left), 1 * (down - up))
     this.player.update();
 
+    // Make sure player isn't out of bounds
+    {
+      const radius = this.player.radius;
+      this.player.x = Math.min(this.width - radius, Math.max(0 + radius, this.player.x));
+      this.player.y = Math.min(this.height - radius, Math.max(0 + radius, this.player.y));
+    }
+
     // update projectiles
     this.projectiles.forEach(projectile => {
       projectile.update();
