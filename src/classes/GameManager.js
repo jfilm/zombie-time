@@ -4,7 +4,7 @@ import { Projectile } from "./Projectile";
 
 /// This class will handle all the game logic, 
 /// from updating all entities to handling input events
-export class GameManager{
+export class GameManager {
   constructor(viewport, ctx) {
     this.viewport = viewport;
     this.ctx = ctx;
@@ -12,12 +12,37 @@ export class GameManager{
     this.projectiles = [];
     this.enemies = [];
 
-    // spawn some random enemies
-    for (let i = 0; i < 10; i++) {
-      const x = Math.floor(Math.random() * viewport.width);
-      const y = Math.floor(Math.random() * viewport.height);
-      this.enemies.push(new Enemy(x, y));
-    }
+    // spawn some random enemies with interval
+    setInterval(() => {
+      const radius = 20;
+
+      let x;
+      let y;
+      // Assign random coordinate just out of the viewport
+      if (Math.random() < 0.5) {
+        x = Math.random() < 0.5 ? 0 - radius : viewport.width + radius;
+        y = Math.random() * viewport.height;
+      } else {
+        x = Math.random() * viewport.width;
+        y = Math.random() < 0.5 ? 0 - radius : viewport.height + radius;
+
+      }
+      //Calculate angle of projectile speed vector.
+      const angle = Math.atan2(viewport.height / 2 - y, viewport.width / 2 - x);
+      //Get speed by axis in form of object {x, y}
+      const velocity = {
+        x: Math.cos(angle),
+        y: Math.sin(angle)
+      }
+
+      const enemy = new Enemy(x, y);
+      enemy.velocity = velocity;
+
+      this.enemies.push(enemy)
+      // console.log(enemies);
+    }, 1000)
+
+
 
     this.inputs = {
       up: false,
@@ -52,6 +77,7 @@ export class GameManager{
     this.player.setVelocity(1 * (right - left), 1 * (down - up))
     this.player.update();
 
+
     // Make sure player isn't out of bounds
     {
       const radius = this.player.radius;
@@ -62,7 +88,6 @@ export class GameManager{
     // update projectiles
     this.projectiles.forEach(projectile => {
       projectile.update();
-
       this.enemies.forEach(enemy => {
         if (enemy.collidesWith(projectile)) {
           enemy.takeDamage(10);
@@ -76,8 +101,14 @@ export class GameManager{
       return projectile.x > 0 && projectile.y > 0 && projectile.x < this.width && projectile.y < this.height && projectile.hp > 0;
     });
 
-    // Remove dead enemies
-    this.enemies = this.enemies.filter(enemy => enemy.hp > 0);
+
+    // Updating all enemies and removing dead enemies
+    this.enemies.forEach((enemy, i) => {
+      enemy.update()
+      if (enemy.hp <= 0) {
+        this.enemies.splice(i, 1)
+      }
+    })
   }
 
   shoot(event) {
@@ -87,8 +118,8 @@ export class GameManager{
     const angle = Math.atan2(distance_y, distance_x);
     //Get speed by axis in form of object {x, y}
     const velocity = {
-        x: 2 * Math.cos(angle),
-        y: 2 * Math.sin(angle)
+      x: 2 * Math.cos(angle),
+      y: 2 * Math.sin(angle)
     }
     // Add new projectile to the array
     this.projectiles.push(new Projectile(this.player.x, this.player.y, velocity));
