@@ -1,14 +1,15 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin'); //installed via npm
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
-    entry:  './src/index.js',
+    entry: './src/index.js',
     devtool: 'inline-source-map',
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
         hot: true,
         port: 8080,
-        host:"127.0.0.1"
+        host: "127.0.0.1"
     },
 
     output: {
@@ -51,6 +52,13 @@ module.exports = {
 
         ],
     },
-    plugins: [new HtmlWebpackPlugin({ template: './src/index.html', minify: false })],
+    plugins: [
+        new HtmlWebpackPlugin({ template: './src/index.html', minify: false }),
+        new CopyWebpackPlugin({
+            patterns: [
+                { from: 'src/assets', to: 'assets' }
+            ]
+        })],
+
 
 };
