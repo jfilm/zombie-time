@@ -128,7 +128,7 @@ export class GameManager {
     this.enemies = this.enemies.filter(enemy => enemy.hp > 0);
     // Updating all enemies and 
     this.enemies.forEach(enemy => {
-      // enemy.findPlayer(this.player.x, this.player.y)ssa
+      enemy.findPlayer(this.player.x, this.player.y)
       enemy.update()
     })
   }
