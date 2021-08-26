@@ -2,6 +2,8 @@ import { Enemy } from "./Enemy";
 import { Player } from "./Player";
 import { Projectile } from "./Projectile";
 
+const waves = [20, 30, 35, 50, 80];
+
 /// This class will handle all the game logic, 
 /// from updating all entities to handling input events
 export class GameManager {
@@ -11,6 +13,9 @@ export class GameManager {
     this.player = new Player(viewport.width / 2, viewport.height / 2);
     this.projectiles = [];
     this.enemies = [];
+    this.waves = waves;
+    this.waveCounter = 0;
+    this.enemiesKilled = 0;
 
     // spawn some random enemies with interval
     setInterval(() => {
@@ -75,6 +80,7 @@ export class GameManager {
     });
 
     this.drawHealthBar();
+    this.drawWaveCounter();
   }
 
   drawHealthBar() {
@@ -92,6 +98,17 @@ export class GameManager {
     // Draw Green "health"
     this.ctx.fillStyle = "green";
     this.ctx.fillRect(this.width - 112, this.height - 22, currentHP, 10);
+  }
+
+  drawWaveCounter() {
+    const wave = this.waveCounter + 1;
+    const maxWaves = this.waves.length;
+    this.ctx.font = "16px sans-serif"
+    this.fillStyle = "black";
+    this.ctx.fillText(`Wave ${wave}/${maxWaves}`, 10, 20)
+
+    const enemiesRemaining = this.waves[this.waveCounter] - this.enemiesKilled;
+    this.ctx.fillText(`Enemies Remaining: ${enemiesRemaining}`, 10, 38)
   }
 
   update() {
@@ -124,13 +141,26 @@ export class GameManager {
       return projectile.x > 0 && projectile.y > 0 && projectile.x < this.width && projectile.y < this.height && projectile.hp > 0;
     });
 
-    //Removing dead enemies
-    this.enemies = this.enemies.filter(enemy => enemy.hp > 0);
     // Updating all enemies and 
     this.enemies.forEach(enemy => {
       enemy.findPlayer(this.player.x, this.player.y)
       enemy.update()
     })
+
+    //Removing dead enemies
+    this.enemies = this.enemies.filter(enemy => {
+      const remove = enemy.hp <= 0;
+      if (remove) {
+        this.enemiesKilled++;
+        console.log(this.enemiesKilled, this.waves[this.waveCounter]);
+      }
+      return !remove;
+    });
+
+    // Check if wave is cleared
+    if (this.waves[this.waveCounter] <= this.enemiesKilled) {
+      this.resetWave();
+    }
   }
 
   shoot(event) {
@@ -177,5 +207,14 @@ export class GameManager {
       // KEY DOWN or KEY S
       this.inputs.down = false;
     }
+  }
+
+  resetWave() {
+    this.enemies = [];
+    this.projectiles = [];
+    // Should we reset the players position?
+
+    this.waveCounter++;
+    this.enemiesKilled = 0;
   }
 }
