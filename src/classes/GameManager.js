@@ -122,6 +122,10 @@ export class GameManager {
     // Check players hp, and if it is less then 0, then sets the game state to a condition "lose"
     if (this.player.hp <= 0) {
       this.state = 'lose'
+      return;
+    } else if (this.waveCounter >= this.waves.length) {
+      this.state = 'win';
+      return;
     }
 
     // Update players velocity and location
