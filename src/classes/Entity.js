@@ -43,6 +43,7 @@ export class Entity {
   takeDamage(damage) {
     if (!this.invincible) {
       this.hp -= damage;
+      this.hp = Math.max(this.hp, 0);
 
       // Turn on "invincibility frames"
       this.invincible = true;
