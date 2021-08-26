@@ -16,11 +16,9 @@ export class Projectile {
         ctx.fill()
     }
 
-    update(ctx) {
-        this.draw(ctx)
+    update() {
         this.x  = this.x + this.velocity.x;
         this.y  = this.y + this.velocity.y;
-  
     }
 
 

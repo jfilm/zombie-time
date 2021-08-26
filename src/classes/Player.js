@@ -10,7 +10,10 @@ export class Player {
 
     }
 
+    
+    update() {
 
+    }
 
     draw(ctx) {
         ctx.beginPath()
