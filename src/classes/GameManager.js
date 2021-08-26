@@ -7,7 +7,7 @@ export class GameManager{
   constructor(viewport, ctx) {
     this.viewport = viewport;
     this.ctx = ctx;
-    this.player = new Player(viewport.width / 2, viewport.height / 2, 10, "green");
+    this.player = new Player(viewport.width / 2, viewport.height / 2);
     this.projectiles = [];
 
     this.inputs = {
@@ -36,14 +36,17 @@ export class GameManager{
   }
 
   update() {
+    // Update players velocity and location
     const { right, left, up, down } = this.inputs;
-    this.player.setVelocity(2 * (right - left), 2 * (down - up))
+    this.player.setVelocity(1 * (right - left), 1 * (down - up))
     this.player.update();
 
+    // update projectiles
     this.projectiles.forEach(projectile => {
       projectile.update();
     });
 
+    // Remove offscreen projectiles
     this.projectiles = this.projectiles.filter((projectile) => {
       return projectile.x > 0 && projectile.y > 0 && projectile.x < this.width && projectile.y < this.height;
     });
@@ -56,11 +59,11 @@ export class GameManager{
     const angle = Math.atan2(distance_y, distance_x);
     //Get speed by axis in form of object {x, y}
     const velocity = {
-        x: Math.cos(angle),
-        y: Math.sin(angle)
+        x: 2 * Math.cos(angle),
+        y: 2 * Math.sin(angle)
     }
     // Add new projectile to the array
-    this.projectiles.push(new Projectile(this.player.x, this.player.y, 5, 'red', velocity))
+    this.projectiles.push(new Projectile(this.player.x, this.player.y, velocity))
   }
 
   keyDown(event) {
