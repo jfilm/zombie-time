@@ -43,7 +43,31 @@ export class GameManager{
       projectile.draw(this.ctx);
     });
 
-    this.enemies.forEach(enemy => enemy.draw(this.ctx));
+    this.enemies.forEach(enemy => {
+      enemy.draw(this.ctx)
+      if (enemy.collidesWith(this.player)) {
+        this.player.takeDamage(10);
+      }
+    });
+
+    this.drawHealthBar();
+  }
+
+  drawHealthBar() {
+    const maxHP = 100;
+    const currentHP = this.player.hp;
+
+    // draw black boarder
+    this.ctx.fillStyle = "black";
+    this.ctx.fillRect(this.width - 114, this.height - 24, 104, 14);
+
+    // Draw red "underside"
+    this.ctx.fillStyle = "red";
+    this.ctx.fillRect(this.width - 112, this.height - 22, maxHP, 10);
+
+    // Draw Green "health"
+    this.ctx.fillStyle = "green";
+    this.ctx.fillRect(this.width - 112, this.height - 22, currentHP, 10);
   }
 
   update() {

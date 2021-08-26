@@ -6,6 +6,7 @@ export class Entity {
     this.color = color;
     this.velocity = velocity;
     this.hp = 10;
+    this.invincible = false;
   }
 
   draw(ctx) {
@@ -40,6 +41,19 @@ export class Entity {
   }
 
   takeDamage(damage) {
-    this.hp -= damage;
+    if (!this.invincible) {
+      this.hp -= damage;
+
+      // Turn on "invincibility frames"
+      this.invincible = true;
+      const originalColor = this.color;
+      this.color = "red";
+
+      // Turn off "invincibility frames"
+      setTimeout(() => {
+        this.invincible = false;
+        this.color = originalColor;
+      }, 500);
+    }
   }
 }
