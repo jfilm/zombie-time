@@ -30,9 +30,11 @@ document.addEventListener('keyup', (event) => game.keyUp(event));
 
 // Canvas refresher (please rewrite this comment, I don't know how to call this function 😅)
 function drawFrame() {
+ 
     game.update();
     game.draw();
     requestAnimationFrame(drawFrame);
+
 }
 
 drawFrame();

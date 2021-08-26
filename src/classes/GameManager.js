@@ -12,6 +12,9 @@ export class GameManager {
     this.projectiles = [];
     this.enemies = [];
 
+    // Game state may be: "running", "paused", "win", "loose" 
+    this.state = "running"
+
     // spawn some random enemies with interval
     setInterval(() => {
       const radius = 20;
@@ -95,6 +98,12 @@ export class GameManager {
   }
 
   update() {
+
+    // Check players hp, and if it less then 0 sets game state to the condition "loose"
+    if (this.player.hp < 0) {
+      this.state = 'loose'
+    }
+    console.log(this.state);
     // Update players velocity and location
     const { right, left, up, down } = this.inputs;
     this.player.setVelocity(1 * (right - left), 1 * (down - up))
