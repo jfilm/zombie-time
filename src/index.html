@@ -9,21 +9,44 @@
 </head>
 
 <body>
-    <img src="./assets/images/player/front-right.png" id="player" alt="" hidden>
-    <img src="./assets/images/zombie/zombie.png" id="zombie" alt="" hidden>
-    <!-- Go ahead and change the width and height as you need -->
-    <canvas id="viewport" width="450" height="300">
-    </canvas>
-    <button class="pauseButton">Pause</button>
-    <div class="loseMessageContainer">
-        <h3>You lose</h3>
+
+    <header>
+        <!-- Probably just the Title-->
+        <h1>Zombie Time</h1>
+    </header>
+    <div id="canvas-container">
+        <!--Canvas goes here -->
+        <canvas id="viewport" width="450px" height="300px"></canvas>
+
+
+        <!--Game messages-->
+        <div class="lose messageContainer">
+            <h3>You lose</h3>
+            <button class="restartButton">Restart</button>
+        </div>
+        <div class="win messageContainer">
+            <h3>You won</h3>
+            <button class="restartButton">Restart</button>
+        </div>
+        <div class="pause messageContainer">
+            <h3>Paused</h3>
+        </div>
+
+
+        <button class="pauseButton">Pause</button>
+
+        <img src="./assets/images/player/front-right.png" id="player" alt="" hidden>
+        <img src="./assets/images/zombie/zombie.png" id="zombie" alt="" hidden>
+
     </div>
-    <div class="winMessageContainer">
-        <h3>You won</h3>
+    <div>
+        <!-- Controls and game instructions -->
     </div>
-    <div class="pauseMessageContainer">
-        <h3>Paused</h3>
-    </div>
+
+
+
+
+
 </body>
 
 </html>

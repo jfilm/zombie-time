@@ -19,7 +19,7 @@ viewport.style.height = viewportHeight + 'px';
 ctx.scale(viewportScale, viewportScale);
 
 
-const game = new GameManager(viewport, ctx);
+let game = new GameManager(viewport, ctx);
 
 
 
@@ -38,16 +38,20 @@ document.querySelector(".pauseButton").addEventListener('click', () => {
         game.state = "running"
     }
     console.log(game.state);
+    drawFrame();
+})
 
-
+//Handle a restart button
+document.querySelector('.restartButton').addEventListener('click', () => {
+    game = new GameManager(viewport, ctx)
     drawFrame();
 })
 
 // Get DOM elements (messageContainers)
 const [winContainer, loseContainer, pauseContainer] = [
-    document.querySelector(".winMessageContainer"),
-    document.querySelector(".loseMessageContainer"),
-    document.querySelector(".pauseMessageContainer")
+    document.querySelector(".win"),
+    document.querySelector(".lose"),
+    document.querySelector(".pause")
 ]
 
 

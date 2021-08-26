@@ -9,45 +9,53 @@ canvas {
   margin: 50px auto;
   background: #8ceca7;
 }
+#canvas-container {
+  width: 100%;
+  height: 400px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 
-.loseMessageContainer {
+.pauseButton {
+  width: 100px;
+  
+}
+
+.messageContainer {
   position: absolute;
+
+  /* Center a message */
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+
+  height: 100px;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid;
+  border-radius: 10px;
+  visibility: hidden;
+}
+.lose {
   color: rgb(255, 0, 0);
-  width: 200px;
-  height: 100px;
   background-color: rgba(73, 0, 0, 0.864);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 2px #ff0000 solid;
-  border-radius: 10px;
-  visibility: hidden;
+  border-color: #ff0000;
 }
 
-.winMessageContainer {
-  position: absolute;
+.win {
   color: rgb(63, 252, 0);
-  width: 200px;
-  height: 100px;
   background-color: rgba(49, 112, 75, 0.823);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 2px #0dff00 solid;
-  border-radius: 10px;
-  visibility: hidden;
+  border-color: #0dff00;
 }
 
-.pauseMessageContainer {
-  position: absolute;
+.pause {
   color: rgb(73, 73, 73);
-  width: 200px;
-  height: 100px;
   background-color: rgba(255, 255, 255, 0.823);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 2px #949494 solid;
-  border-radius: 10px;
-  visibility: hidden;
+  border-color: #949494;
 }
