@@ -1,6 +1,5 @@
 import { Enemy } from "./Enemy";
 import { Player } from "./Player";
-import { Projectile } from "./Projectile";
 
 const waves = [20, 30, 35, 50, 80];
 
@@ -11,7 +10,6 @@ export class GameManager {
     this.viewport = viewport;
     this.ctx = ctx;
     this.player = new Player(viewport.width / 2, viewport.height / 2);
-    this.projectiles = [];
     this.enemies = [];
     this.waves = waves;
     this.waveCounter = 0;
@@ -70,10 +68,15 @@ export class GameManager {
     this.ctx.clearRect(0, 0, this.width, this.height);
     this.player.draw(this.ctx);
 
-    this.projectiles.forEach(projectile => {
+    //Draw projectiles
+    this.player.weapon.projectiles.forEach(projectile => {
       projectile.draw(this.ctx);
     });
 
+    //Draw a weapon aim
+    this.player.weapon.drawAim(this.ctx)
+
+    //Draw enemies
     this.enemies.forEach(enemy => {
       enemy.draw(this.ctx)
       if (enemy.collidesWith(this.player)) {
@@ -83,6 +86,7 @@ export class GameManager {
 
     this.drawHealthBar();
     this.drawWaveCounter();
+
   }
 
   drawHealthBar() {
@@ -120,8 +124,6 @@ export class GameManager {
       this.state = 'lose'
     }
 
-    
-    console.log(this.state);
     // Update players velocity and location
     const { right, left, up, down } = this.inputs;
     this.player.setVelocity(1 * (right - left), 1 * (down - up))
@@ -135,8 +137,12 @@ export class GameManager {
       this.player.y = Math.min(this.height - radius, Math.max(0 + radius, this.player.y));
     }
 
+    //Update players Weapon
+    this.player.updateWeapon();
+
+
     // update projectiles
-    this.projectiles.forEach(projectile => {
+    this.player.weapon.projectiles.forEach(projectile => {
       projectile.update();
       this.enemies.forEach(enemy => {
         if (enemy.collidesWith(projectile)) {
@@ -147,9 +153,8 @@ export class GameManager {
     });
 
     // Remove offscreen and damaged projectiles
-    this.projectiles = this.projectiles.filter((projectile) => {
-      return projectile.x > 0 && projectile.y > 0 && projectile.x < this.width && projectile.y < this.height && projectile.hp > 0;
-    });
+    this.player.weapon.updateProjectiles(this.width, this.height);
+
 
     // Updating all enemies and 
     this.enemies.forEach(enemy => {
@@ -170,20 +175,6 @@ export class GameManager {
     if (this.waves[this.waveCounter] <= this.enemiesKilled) {
       this.resetWave();
     }
-  }
-
-  shoot(event) {
-    //Calculate angle of projectile speed vector.
-    const distance_x = event.offsetX - this.player.x;
-    const distance_y = event.offsetY - this.player.y;
-    const angle = Math.atan2(distance_y, distance_x);
-    //Get speed by axis in form of object {x, y}
-    const velocity = {
-      x: 2 * Math.cos(angle),
-      y: 2 * Math.sin(angle)
-    }
-    // Add a new projectile to the array
-    this.projectiles.push(new Projectile(this.player.x, this.player.y, velocity));
   }
 
   keyDown(event) {
@@ -220,7 +211,7 @@ export class GameManager {
 
   resetWave() {
     this.enemies = [];
-    this.projectiles = [];
+    this.player.weapon.projectiles = [];
     // Should we reset the players position?
 
     this.waveCounter++;
