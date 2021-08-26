@@ -1,3 +1,4 @@
+import { Enemy } from "./Enemy";
 import { Player } from "./Player";
 import { Projectile } from "./Projectile";
 
@@ -9,6 +10,14 @@ export class GameManager{
     this.ctx = ctx;
     this.player = new Player(viewport.width / 2, viewport.height / 2);
     this.projectiles = [];
+    this.enemies = [];
+
+    // spawn some random enemies
+    for (let i = 0; i < 10; i++) {
+      const x = Math.floor(Math.random() * viewport.width);
+      const y = Math.floor(Math.random() * viewport.height);
+      this.enemies.push(new Enemy(x, y));
+    }
 
     this.inputs = {
       up: false,
@@ -33,6 +42,8 @@ export class GameManager{
     this.projectiles.forEach(projectile => {
       projectile.draw(this.ctx);
     });
+
+    this.enemies.forEach(enemy => enemy.draw(this.ctx));
   }
 
   update() {
@@ -44,12 +55,22 @@ export class GameManager{
     // update projectiles
     this.projectiles.forEach(projectile => {
       projectile.update();
+
+      this.enemies.forEach(enemy => {
+        if (enemy.collidesWith(projectile)) {
+          enemy.takeDamage(10);
+          projectile.takeDamage(10);
+        }
+      })
     });
 
-    // Remove offscreen projectiles
+    // Remove offscreen and damaged projectiles
     this.projectiles = this.projectiles.filter((projectile) => {
-      return projectile.x > 0 && projectile.y > 0 && projectile.x < this.width && projectile.y < this.height;
+      return projectile.x > 0 && projectile.y > 0 && projectile.x < this.width && projectile.y < this.height && projectile.hp > 0;
     });
+
+    // Remove dead enemies
+    this.enemies = this.enemies.filter(enemy => enemy.hp > 0);
   }
 
   shoot(event) {
@@ -63,7 +84,7 @@ export class GameManager{
         y: 2 * Math.sin(angle)
     }
     // Add new projectile to the array
-    this.projectiles.push(new Projectile(this.player.x, this.player.y, velocity))
+    this.projectiles.push(new Projectile(this.player.x, this.player.y, velocity));
   }
 
   keyDown(event) {

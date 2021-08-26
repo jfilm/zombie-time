@@ -5,6 +5,7 @@ export class Entity {
     this.radius = radius;
     this.color = color;
     this.velocity = velocity;
+    this.hp = 10;
   }
 
   draw(ctx) {
@@ -26,5 +27,19 @@ export class Entity {
         x,
         y
     };
+  }
+
+  /// Returns true if the entities are colliding, else false
+  collidesWith(entity) {
+    const dx = Math.abs(entity.x - this.x);
+    const dy = Math.abs(entity.y - this.y);
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    const combinedRadii = this.radius + entity.radius;
+
+    return (combinedRadii > distance);
+  }
+
+  takeDamage(damage) {
+    this.hp -= damage;
   }
 }
