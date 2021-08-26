@@ -15,7 +15,6 @@ export class GameManager {
     // spawn some random enemies with interval
     setInterval(() => {
       const radius = 20;
-
       let x;
       let y;
       // Assign random coordinate just out of the viewport
@@ -102,9 +101,10 @@ export class GameManager {
     });
 
     //Removing dead enemies
-    this.enemies.filter(enemy => enemy.hp > 0)
+    this.enemies = this.enemies.filter(enemy => enemy.hp > 0);
     // Updating all enemies and 
     this.enemies.forEach(enemy => {
+      // enemy.findPlayer(this.player.x, this.player.y)ssa
       enemy.update()
     })
   }
