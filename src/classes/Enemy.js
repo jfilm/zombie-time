@@ -6,9 +6,9 @@ export class Enemy extends Entity {
     }
 
     findPlayer(playerX, playerY) {
-        //Calculate angle of projectile speed vector.
+        //Calculate an angle of a projectile speed vector.
         const angle = Math.atan2(playerY - this.y, playerX - this.x);
-        //Get speed by axis in form of object {x, y}
+        //Get speed by axis in form of an object {x, y}
         this.velocity = {
             x: Math.cos(angle),
             y: Math.sin(angle)

@@ -12,15 +12,15 @@ export class GameManager {
     this.projectiles = [];
     this.enemies = [];
 
-    // Game state may be: "running", "paused", "win", "loose" 
+    // Game state may be: "running", "paused", "win", "lose" 
     this.state = "running"
 
-    // spawn some random enemies with interval
+    // spawn some random enemies with an interval
     setInterval(() => {
       const radius = 20;
       let x;
       let y;
-      // Assign random coordinate just out of the viewport
+      // Assign a random coordinate just out of the viewport
       if (Math.random() < 0.5) {
         x = Math.random() < 0.5 ? 0 - radius : viewport.width + radius;
         y = Math.random() * viewport.height;
@@ -29,7 +29,7 @@ export class GameManager {
         y = Math.random() < 0.5 ? 0 - radius : viewport.height + radius;
 
       }
-      //Calculate angle of projectile speed vector.
+      //Calculate an angle of a projectile speed vector.
       const angle = Math.atan2(viewport.height / 2 - y, viewport.width / 2 - x);
       //Get speed by axis in form of object {x, y}
       const velocity = {
@@ -41,7 +41,6 @@ export class GameManager {
       enemy.velocity = velocity;
 
       this.enemies.push(enemy)
-      // console.log(enemies);
     }, 1000)
 
 
@@ -99,10 +98,12 @@ export class GameManager {
 
   update() {
 
-    // Check players hp, and if it less then 0 sets game state to the condition "loose"
-    if (this.player.hp < 0) {
-      this.state = 'loose'
+    // Check players hp, and if it is less then 0, then sets the game state to a condition "lose"
+    if (this.player.hp <= 0) {
+      this.state = 'lose'
     }
+
+    
     console.log(this.state);
     // Update players velocity and location
     const { right, left, up, down } = this.inputs;
@@ -135,7 +136,7 @@ export class GameManager {
 
     //Removing dead enemies
     this.enemies = this.enemies.filter(enemy => enemy.hp > 0);
-    // Updating all enemies and 
+    // Updating all enemies 
     this.enemies.forEach(enemy => {
       enemy.findPlayer(this.player.x, this.player.y)
       enemy.update()
@@ -152,7 +153,7 @@ export class GameManager {
       x: 2 * Math.cos(angle),
       y: 2 * Math.sin(angle)
     }
-    // Add new projectile to the array
+    // Add a new projectile to the array
     this.projectiles.push(new Projectile(this.player.x, this.player.y, velocity));
   }
 
