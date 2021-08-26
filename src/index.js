@@ -24,7 +24,7 @@ const game = new GameManager(viewport, ctx);
 
 
 
-viewport.addEventListener('click', (event) => game.shoot(event));
+viewport.addEventListener('click', (event) => game.player.weapon.shoot(event));
 document.addEventListener('keydown', (event) => game.keyDown(event));
 document.addEventListener('keyup', (event) => game.keyUp(event));
 
