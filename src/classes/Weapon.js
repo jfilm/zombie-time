@@ -4,7 +4,6 @@ const viewport = document.getElementById("viewport");
 
 
 export class Weapon {
-
     constructor(x, y) {
 
         this.bulletSize = 5;
@@ -19,8 +18,8 @@ export class Weapon {
             color: 'yellow',
 
         }
-
     }
+
     shoot(event) {
         //Calculate angle of projectile speed vector.
         const distance_x = event.offsetX - this.playerX;
@@ -63,8 +62,5 @@ export class Weapon {
         ctx.fillStyle = "black";
         ctx.fill();
     }
-
-
-
 
 }
