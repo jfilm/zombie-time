@@ -101,13 +101,11 @@ export class GameManager {
       return projectile.x > 0 && projectile.y > 0 && projectile.x < this.width && projectile.y < this.height && projectile.hp > 0;
     });
 
-
-    // Updating all enemies and removing dead enemies
-    this.enemies.forEach((enemy, i) => {
+    //Removing dead enemies
+    this.enemies.filter(enemy => enemy.hp > 0)
+    // Updating all enemies and 
+    this.enemies.forEach(enemy => {
       enemy.update()
-      if (enemy.hp <= 0) {
-        this.enemies.splice(i, 1)
-      }
     })
   }
 
