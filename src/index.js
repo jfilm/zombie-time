@@ -29,15 +29,57 @@ viewport.addEventListener('mousemove', (event) => game.player.weapon.setAimCoord
 document.addEventListener('keydown', (event) => game.keyDown(event));
 document.addEventListener('keyup', (event) => game.keyUp(event));
 
+
+//Handle pause button
+document.querySelector(".pauseButton").addEventListener('click', () => {
+    if (game.state === "running") {
+        game.state = "paused"
+    } else if (game.state === "paused") {
+        game.state = "running"
+    }
+    console.log(game.state);
+
+
+    drawFrame();
+})
+
+// Get DOM elements (messageContainers)
+const [winContainer, loseContainer, pauseContainer] = [
+    document.querySelector(".winMessageContainer"),
+    document.querySelector(".loseMessageContainer"),
+    document.querySelector(".pauseMessageContainer")
+]
+
+
 // Canvas refresher (please rewrite this comment, I don't know how to call this function 😅)
 function drawFrame() {
 
     game.update();
     game.draw();
-    requestAnimationFrame(drawFrame);
+
+    switch (game.state) {
+        case "running":
+            pauseContainer.style.visibility = "hidden"
+            loseContainer.style.visibility = "hidden"
+            winContainer.style.visibility = "hidden"
+            requestAnimationFrame(drawFrame);
+            break;
+        case "paused":
+            pauseContainer.style.visibility = "visible"
+            break;
+        case "lose":
+            loseContainer.style.visibility = "visible"
+            break;
+        case "win":
+            winContainer.style.visibility = "visible"
+            break;
+        default:
+            break;
+    }
 
 }
 
 drawFrame();
+
 
 

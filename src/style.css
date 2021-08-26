@@ -7,5 +7,47 @@ body {
 
 canvas {
   margin: 50px auto;
-  background: #8CECA7;
+  background: #8ceca7;
+}
+
+.loseMessageContainer {
+  position: absolute;
+  color: rgb(255, 0, 0);
+  width: 200px;
+  height: 100px;
+  background-color: rgba(73, 0, 0, 0.864);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px #ff0000 solid;
+  border-radius: 10px;
+  visibility: hidden;
+}
+
+.winMessageContainer {
+  position: absolute;
+  color: rgb(63, 252, 0);
+  width: 200px;
+  height: 100px;
+  background-color: rgba(49, 112, 75, 0.823);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px #0dff00 solid;
+  border-radius: 10px;
+  visibility: hidden;
+}
+
+.pauseMessageContainer {
+  position: absolute;
+  color: rgb(73, 73, 73);
+  width: 200px;
+  height: 100px;
+  background-color: rgba(255, 255, 255, 0.823);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px #949494 solid;
+  border-radius: 10px;
+  visibility: hidden;
 }
