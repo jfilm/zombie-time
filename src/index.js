@@ -24,9 +24,9 @@ const game = new GameManager(viewport, ctx);
 // Need to realise function that deletes projectiles that fly out of the field
 // function clearProjectilesArray() {}
 
-viewport.addEventListener('click', (event) => {
-  game.shoot(event);
-});
+viewport.addEventListener('click', (event) => game.shoot(event));
+document.addEventListener('keydown', (event) => game.keyDown(event));
+document.addEventListener('keyup', (event) => game.keyUp(event));
 
 // Canvas refresher (please rewrite this comment, I don't know how to call this function 😅)
 function drawFrame() {
