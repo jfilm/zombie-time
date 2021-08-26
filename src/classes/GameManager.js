@@ -162,7 +162,6 @@ export class GameManager {
       const remove = enemy.hp <= 0;
       if (remove) {
         this.enemiesKilled++;
-        console.log(this.enemiesKilled, this.waves[this.waveCounter]);
       }
       return !remove;
     });
