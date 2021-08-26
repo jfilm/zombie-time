@@ -25,6 +25,7 @@ const game = new GameManager(viewport, ctx);
 
 
 viewport.addEventListener('click', (event) => game.player.weapon.shoot(event));
+viewport.addEventListener('mousemove', (event) => game.player.weapon.setAimCoordinates(event, { x: game.player.x, y: game.player.y }))
 document.addEventListener('keydown', (event) => game.keyDown(event));
 document.addEventListener('keyup', (event) => game.keyUp(event));
 

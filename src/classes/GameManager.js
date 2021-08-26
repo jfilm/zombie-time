@@ -68,12 +68,15 @@ export class GameManager {
     this.ctx.clearRect(0, 0, this.width, this.height);
     this.player.draw(this.ctx);
 
+    //Draw projectiles
     this.player.weapon.projectiles.forEach(projectile => {
       projectile.draw(this.ctx);
     });
+
     //Draw a weapon aim
     this.player.weapon.drawAim(this.ctx)
 
+    //Draw enemies
     this.enemies.forEach(enemy => {
       enemy.draw(this.ctx)
       if (enemy.collidesWith(this.player)) {

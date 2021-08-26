@@ -15,8 +15,9 @@ export class Weapon {
         this.aim = {
             x: 0,
             y: 0,
-            radius: 3,
-            color: 'yellow'
+            radius: 70,
+            color: 'yellow',
+
         }
 
     }
@@ -41,13 +42,26 @@ export class Weapon {
         });
     }
 
-    drawAim(ctx, x, y) {
+    setAimCoordinates(event, playerCoordinates) {
+
+        const dx = event.offsetX - playerCoordinates.x
+        const dy = event.offsetY - playerCoordinates.y
+
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        if (distance > this.aim.radius) {
+            this.aim.x = ((dx * this.aim.radius) / distance) + playerCoordinates.x;
+            this.aim.y = ((dy * this.aim.radius) / distance) + playerCoordinates.y;
+        } else {
+            this.aim.x = event.offsetX;
+            this.aim.y = event.offsetY;
+        }
+    }
+
+    drawAim(ctx) {
         ctx.beginPath();
-        ctx.arc(this.aim.x, this.aim.y, 10, 0, Math.PI * 2, false);
-        ctx.fillStyle = 'red';
+        ctx.arc(this.aim.x, this.aim.y, 2, 0, Math.PI * 2, false);
+        ctx.fillStyle = "black";
         ctx.fill();
-
-
     }
 
 
