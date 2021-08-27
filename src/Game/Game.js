@@ -1,5 +1,6 @@
 import { Enemy } from "../Entities/Enemy";
 import { Player } from "../Entities/Player";
+import { Weapon } from "../Entities/Weapon";
 import { gameState } from "./GameManager";
 
 // Arbitrary values, feel free to change
@@ -12,13 +13,14 @@ class Game {
     this.height = height;
 
     this.player = new Player(width / 2, height / 2);
+    this.player.weapon = new Weapon();
     this.enemies = [];
     this.projectiles = [];
     this.waves = waves;
     this.waveCounter = 0;
     this.enemiesKilled = 0;
 
-   this.canSpawn = true;
+    this.canSpawn = true;
 
     this.inputs = {
       up: false,
@@ -115,7 +117,7 @@ class Game {
     });
 
 
-    // Updating all enemies and 
+    // Updating all enemies 
     this.enemies.forEach(enemy => {
       if (enemy.collidesWith(this.player)) {
         this.player.takeDamage(10);
@@ -189,18 +191,18 @@ class Game {
 
     const enemy = new Enemy(x, y);
 
-    
+
     this.enemies.push(enemy);
-    
+
     // disable enemy spawning for 1 second
     this.canSpawn = false;
     const game = this;
-    setTimeout(function() { 
+    setTimeout(function() {
       game.canSpawn = true;
     }, 1000);
   }
 
-  handleKeyDown({keyCode}) {
+  handleKeyDown({ keyCode }) {
     if (keyCode == 65 || keyCode == 37) {
       // KEY LEFT or KEY A
       this.inputs.left = true;
@@ -244,6 +246,6 @@ class Game {
   }
 }
 
-export { 
-  Game 
+export {
+  Game
 };

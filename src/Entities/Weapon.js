@@ -1,18 +1,17 @@
 import { Projectile } from "./Projectile";
 
 export class Weapon {
-    constructor(x, y) {
+    constructor() {
 
         this.bulletSize = 5;
         this.speed = 5;
-        this.playerX = x;
-        this.playerY = y;
+        this.playerX;
+        this.playerY;
         this.aim = {
             x: 0,
             y: 0,
             radius: 70,
             color: 'yellow',
-
         }
     }
 
