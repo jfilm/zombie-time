@@ -4,8 +4,8 @@ import { Point2d } from "../Entities/Point2d";
 import { gameState } from "./GameManager";
 
 // Arbitrary values, feel free to change
-// const waves = [20, 30, 35, 50, 80];
-const waves = [5];
+const waves = [20, 30, 35, 50, 80];
+// const waves = [5];
 
 /// This class will handle the actual game logic like managing entities
 class Game {
