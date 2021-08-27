@@ -6,11 +6,4 @@ export class Projectile extends Entity {
         super(position, bulletSize, "red", speed);
         this.velocity = direction.scale(speed);
     }
-
-    
-
-  update() {
-    this.x  = this.x + this.velocity.x;
-    this.y  = this.y + this.velocity.y;
-  }
 }

@@ -23,6 +23,7 @@ export class Player extends Entity {
 
         this.position = this.position.add(this.velocity)
     }
+
 }
 
 

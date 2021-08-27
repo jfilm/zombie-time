@@ -45,6 +45,18 @@ ctx.scale(viewportScale, viewportScale);
 //     game.resetGame();
 //     drawFrame();
 // })
+document.querySelector(".pauseButton").addEventListener('click', () => {
+    if (game.state === gameState.RUNNING) {
+        game.state = gameState.PAUSED;
+    } else if (game.state === gameState.PAUSED) {
+        game.state = gameState.RUNNING;
+    }
+})
+
+//Handle a restart button
+document.querySelector('.restartButton').addEventListener('click', () => {
+    game.resetGame();
+})
 
 // Get DOM elements (messageContainers)
 const [winContainer, loseContainer, pauseContainer] = [

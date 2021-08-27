@@ -19,7 +19,7 @@ class Game {
     this.waveCounter = 0;
     this.enemiesKilled = 0;
 
-   this.canSpawn = true;
+    this.canSpawn = true;
 
     this.inputs = {
       up: false,
@@ -115,7 +115,7 @@ class Game {
     });
 
 
-    // Updating all enemies and 
+    // Updating all enemies 
     this.enemies.forEach(enemy => {
       if (enemy.collidesWith(this.player)) {
         this.player.takeDamage(10);
@@ -177,7 +177,7 @@ class Game {
     let x;
     let y;
 
-    // Assign a random coordinate just out of the viewport
+    // Assign a random coordinate that are on the boarder of the viewport
     if (Math.random() < 0.5) {
       x = Math.random() < 0.5 ? 0 - radius : viewport.width + radius;
       y = Math.random() * viewport.height;
@@ -189,18 +189,18 @@ class Game {
 
     const enemy = new Enemy(x, y);
 
-    
+
     this.enemies.push(enemy);
-    
+
     // disable enemy spawning for 1 second
     this.canSpawn = false;
     const game = this;
-    setTimeout(function() { 
+    setTimeout(function() {
       game.canSpawn = true;
     }, 1000);
   }
 
-  handleKeyDown({keyCode}) {
+  handleKeyDown({ keyCode }) {
     if (keyCode == 65 || keyCode == 37) {
       // KEY LEFT or KEY A
       this.inputs.left = true;
@@ -246,6 +246,6 @@ class Game {
   }
 }
 
-export { 
-  Game 
+export {
+  Game
 };
