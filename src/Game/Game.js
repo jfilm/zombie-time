@@ -39,9 +39,6 @@ class Game {
       projectile.draw(ctx);
     });
 
-    //Draw a weapon aim
-    this.player.weapon.drawAim(ctx)
-
     //Draw enemies
     this.enemies.forEach(enemy => {
       enemy.draw(ctx);
@@ -127,9 +124,9 @@ class Game {
 
     this.projectiles = this.projectiles.filter(projectile => {
       return (
-        projectile.x > 0 && 
+        projectile.x > 0 &&
         projectile.y > 0 &&
-        projectile.x < this.width && 
+        projectile.x < this.width &&
         projectile.y < this.height &&
         projectile.hp > 0
       );
@@ -197,7 +194,7 @@ class Game {
     // disable enemy spawning for 1 second
     this.canSpawn = false;
     const game = this;
-    setTimeout(function() {
+    setTimeout(function () {
       game.canSpawn = true;
     }, 1000);
   }
@@ -234,9 +231,9 @@ class Game {
     }
   }
 
-  handleMouseMove({offsetX, offsetY}) {
+  handleMouseMove({ offsetX, offsetY }) {
     const target = new Point2d(offsetX, offsetY)
-    this.player.weapon.setAimCoordinates(target, this.player.position)
+    // this.player.weapon.setAimCoordinates(target, this.player.position)
   }
 
   handleMouseClick(event) {
