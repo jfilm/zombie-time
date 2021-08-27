@@ -1,5 +1,5 @@
 import './style.css';
-import { GameManager } from './classes/GameManager';
+import { GameManager, gameState } from './Game/GameManager';
 
 
 const viewport = document.getElementById("viewport");
@@ -24,20 +24,19 @@ let game = new GameManager(viewport, ctx);
 
 
 
-viewport.addEventListener('click', (event) => game.player.weapon.shoot(event));
-viewport.addEventListener('mousemove', (event) => game.player.weapon.setAimCoordinates(event, { x: game.player.x, y: game.player.y }))
+viewport.addEventListener('click', (event) => game.mouseClick(event));
+viewport.addEventListener('mousemove', (event) => game.mouseMove(event))
 document.addEventListener('keydown', (event) => game.keyDown(event));
 document.addEventListener('keyup', (event) => game.keyUp(event));
 
 
 //Handle pause button
 document.querySelector(".pauseButton").addEventListener('click', () => {
-    if (game.state === "running") {
-        game.state = "paused"
-    } else if (game.state === "paused") {
-        game.state = "running"
+    if (game.state === gameState.RUNNING) {
+        game.state = gameState.PAUSED;
+    } else if (game.state === gameState.PAUSED) {
+        game.state = gameState.RUNNING;
     }
-    console.log(game.state);
     drawFrame();
 })
 
@@ -66,7 +65,6 @@ function drawFrame() {
             pauseContainer.style.visibility = "hidden"
             loseContainer.style.visibility = "hidden"
             winContainer.style.visibility = "hidden"
-            requestAnimationFrame(drawFrame);
             break;
         case "paused":
             pauseContainer.style.visibility = "visible"
@@ -81,6 +79,7 @@ function drawFrame() {
             break;
     }
 
+    requestAnimationFrame(drawFrame);
 }
 
 drawFrame();

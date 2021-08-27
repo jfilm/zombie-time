@@ -10,7 +10,6 @@ export class Weapon {
         this.speed = 5;
         this.playerX = x;
         this.playerY = y;
-        this.projectiles = []
         this.aim = {
             x: 0,
             y: 0,
@@ -30,19 +29,10 @@ export class Weapon {
             x: this.speed * Math.cos(angle),
             y: this.speed * Math.sin(angle)
         }
-        // Add a new projectile to the array
-        this.projectiles.push(new Projectile(this.playerX, this.playerY, this.bulletSize, velocity));
-    }
-
-    updateProjectiles(width, height) {
-        // Remove offscreen and damaged projectiles
-        this.projectiles = this.projectiles.filter((projectile) => {
-            return projectile.x > 0 && projectile.y > 0 && projectile.x < width && projectile.y < height && projectile.hp > 0;
-        });
+        return new Projectile(this.playerX, this.playerY, this.bulletSize, velocity);
     }
 
     setAimCoordinates(event, playerCoordinates) {
-
         const dx = event.offsetX - playerCoordinates.x
         const dy = event.offsetY - playerCoordinates.y
 
