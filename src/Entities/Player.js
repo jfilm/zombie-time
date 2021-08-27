@@ -10,6 +10,7 @@ export class Player extends Entity {
     constructor(x, y) {
         super(new Point2d(x, y), 15, "blue", 2, 0, playerMaxHP);
         this.weapon = shotgun;
+        this.invincible = false;
     }
 
     update({ right, left, up, down }) {
@@ -24,6 +25,23 @@ export class Player extends Entity {
         this.position = this.position.add(this.velocity)
     }
 
+    takeDamage(damage) {
+        if (!this.invincible) {
+          this.hp -= damage;
+          this.hp = Math.max(this.hp, 0);
+    
+          // Turn on "invincibility frames"
+          this.invincible = true;
+          const originalColor = this.color;
+          this.color = "red";
+    
+          // Turn off "invincibility frames"
+          setTimeout(() => {
+            this.invincible = false;
+            this.color = originalColor;
+          }, 400);
+        }
+    }
 }
 
 

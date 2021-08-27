@@ -57,4 +57,5 @@ export class Weapon {
 export const pistol = new Weapon();
 
 // Shotgun deals more damage, but moves slower
+// shotgun bullets can also go through two normal zombies
 export const shotgun = new Weapon(7, 2, 15, 20);

@@ -51,20 +51,6 @@ export class Entity {
   }
 
   takeDamage(damage) {
-    if (!this.invincible) {
-      this.hp -= damage;
-      this.hp = Math.max(this.hp, 0);
-
-      // Turn on "invincibility frames"
-      this.invincible = true;
-      const originalColor = this.color;
-      this.color = "red";
-
-      // Turn off "invincibility frames"
-      setTimeout(() => {
-        this.invincible = false;
-        this.color = originalColor;
-      }, 500);
-    }
+    this.hp -= damage;
   }
 }

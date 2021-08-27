@@ -110,7 +110,6 @@ class Game {
         if (enemy.collidesWith(projectile)) {
           enemy.takeDamage(projectile.attack);
           projectile.takeDamage(10);
-          console.log(projectile.hp);
         }
       })
     });
