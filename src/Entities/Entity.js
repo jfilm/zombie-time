@@ -7,6 +7,7 @@ export class Entity {
     this.color = color;
     this.speed = speed;
     this.velocity = new Point2d;
+    this.attack = attack;
     this.hp = health;
     this.invincible = false;
   }

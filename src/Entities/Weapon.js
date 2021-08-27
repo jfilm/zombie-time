@@ -3,13 +3,14 @@ import { Projectile } from "./Projectile";
 
 
 
+
 export class Weapon {
     constructor(bulletSize = 5, bulletSpeed = 3, bulletDamage = 10, bulletHealth = 10, accuracy = 0.9) {
         this.bulletSize = bulletSize;
         this.bulletSpeed = bulletSpeed;
         this.bulletDamage = bulletDamage;
         this.bulletHealth = bulletHealth;
-        this.accuracy = accuracy;
+        this.accuracy = accuracy; // TODO: add random spread based on `accuracy`
 
         this.aim = {
             x: 0,
@@ -26,7 +27,7 @@ export class Weapon {
         const angle = Math.atan2(distance_y, distance_x);
         //Get speed by axis in form of object {x, y}
         const direction = new Point2d(Math.cos(angle), Math.sin(angle));
-        return new Projectile(playerPos, this.bulletSize, this.bulletSpeed, direction);
+        return new Projectile(playerPos, this.bulletSize, this.bulletSpeed, direction, this.bulletDamage, this.bulletHealth);
     }
 
     setAimCoordinates(target, playerCoordinates) {
@@ -51,3 +52,9 @@ export class Weapon {
     }
 
 }
+
+// Default weapo
+export const pistol = new Weapon();
+
+// Shotgun deals more damage, but moves slower
+export const shotgun = new Weapon(7, 2, 15, 20);

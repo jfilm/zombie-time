@@ -108,8 +108,9 @@ class Game {
       projectile.update();
       this.enemies.forEach(enemy => {
         if (enemy.collidesWith(projectile)) {
-          enemy.takeDamage(10);
+          enemy.takeDamage(projectile.attack);
           projectile.takeDamage(10);
+          console.log(projectile.hp);
         }
       })
     });
@@ -118,7 +119,7 @@ class Game {
     // Updating all enemies 
     this.enemies.forEach(enemy => {
       if (enemy.collidesWith(this.player)) {
-        this.player.takeDamage(10);
+        this.player.takeDamage(enemy.attack);
         return; // Prevents the zombie from moving into the character
       }
       enemy.findPlayer(this.player.position);
@@ -127,8 +128,10 @@ class Game {
 
     this.projectiles = this.projectiles.filter(projectile => {
       return (
-        projectile.x > 0 && projectile.y > 0 &&
-        projectile.x < this.width && projectile.y < this.height &&
+        projectile.x > 0 && 
+        projectile.y > 0 &&
+        projectile.x < this.width && 
+        projectile.y < this.height &&
         projectile.hp > 0
       );
     });
