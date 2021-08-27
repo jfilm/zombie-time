@@ -1,5 +1,6 @@
 import { Enemy } from "../Entities/Enemy";
 import { Player } from "../Entities/Player";
+import { Point2d } from "../Entities/Point2d";
 import { gameState } from "./GameManager";
 
 // Arbitrary values, feel free to change
@@ -87,9 +88,8 @@ class Game {
   /// Returns the next game state
   update() {
     // Update players velocity and location
-    const { right, left, up, down } = this.inputs;
-    this.player.setVelocity(1 * (right - left), 1 * (down - up))
-    this.player.update();
+    this.player.update(this.inputs);
+    // console.log(this.player.velocity);
 
 
     // Make sure player isn't out of bounds
@@ -100,7 +100,7 @@ class Game {
     }
 
     //Update players Weapon
-    this.player.updateWeapon();
+    // this.player.updateWeapon();
 
 
     // update projectiles
@@ -121,7 +121,7 @@ class Game {
         this.player.takeDamage(10);
         return; // Prevents the zombie from moving into the character
       }
-      enemy.findPlayer(this.player.x, this.player.y);
+      enemy.findPlayer(this.player.position);
       enemy.update();
     });
 
@@ -232,12 +232,14 @@ class Game {
     }
   }
 
-  handleMouseMove(event) {
-    this.player.weapon.setAimCoordinates(event, { x: this.player.x, y: this.player.y })
+  handleMouseMove({offsetX, offsetY}) {
+    const target = new Point2d(offsetX, offsetY)
+    this.player.weapon.setAimCoordinates(target, this.player.position)
   }
 
   handleMouseClick(event) {
-    const projectile = this.player.weapon.shoot(event);
+    // const target = new Point2d(offsetX, offsetY);
+    const projectile = this.player.weapon.shoot(event, this.player.position);
     if (projectile) {
       this.projectiles.push(projectile);
     }

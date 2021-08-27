@@ -1,40 +1,37 @@
+import { Point2d } from "./Point2d";
 import { Projectile } from "./Projectile";
-const viewport = document.getElementById("viewport");
 
 
 
 export class Weapon {
-    constructor(x, y) {
+    constructor(bulletSize = 5, bulletSpeed = 3, bulletDamage = 10, bulletHealth = 10, accuracy = 0.9) {
+        this.bulletSize = bulletSize;
+        this.bulletSpeed = bulletSpeed;
+        this.bulletDamage = bulletDamage;
+        this.bulletHealth = bulletHealth;
+        this.accuracy = accuracy;
 
-        this.bulletSize = 5;
-        this.speed = 5;
-        this.playerX = x;
-        this.playerY = y;
         this.aim = {
             x: 0,
             y: 0,
             radius: 70,
             color: 'yellow',
-
         }
     }
 
-    shoot(event) {
+    shoot(event, playerPos) {
         //Calculate angle of projectile speed vector.
-        const distance_x = event.offsetX - this.playerX;
-        const distance_y = event.offsetY - this.playerY;
+        const distance_x = event.offsetX - playerPos.x;
+        const distance_y = event.offsetY - playerPos.y;
         const angle = Math.atan2(distance_y, distance_x);
         //Get speed by axis in form of object {x, y}
-        const velocity = {
-            x: this.speed * Math.cos(angle),
-            y: this.speed * Math.sin(angle)
-        }
-        return new Projectile(this.playerX, this.playerY, this.bulletSize, velocity);
+        const direction = new Point2d(Math.cos(angle), Math.sin(angle));
+        return new Projectile(playerPos, this.bulletSize, this.bulletSpeed, direction);
     }
 
-    setAimCoordinates(event, playerCoordinates) {
-        const dx = event.offsetX - playerCoordinates.x
-        const dy = event.offsetY - playerCoordinates.y
+    setAimCoordinates(target, playerCoordinates) {
+        const dx = target.x - playerCoordinates.x
+        const dy = target.y - playerCoordinates.y
 
         const distance = Math.sqrt(dx * dx + dy * dy);
         if (distance > this.aim.radius) {

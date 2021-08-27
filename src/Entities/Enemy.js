@@ -1,19 +1,18 @@
 import { Entity } from "./Entity";
+import { Point2d } from "./Point2d";
 const zombieImg = document.querySelector('#zombie');
 
 export class Enemy extends Entity {
     constructor(x, y) {
-        super(x, y, 15, "brown", { x: 0, y: 0 });
+        super(new Point2d(x, y), 15, "brown", 0.7);
     }
 
-    findPlayer(playerX, playerY) {
+    findPlayer(playerPos) {
         //Calculate an angle of a projectile speed vector.
-        const angle = Math.atan2(playerY - this.y, playerX - this.x);
+        const angle = Math.atan2(playerPos.y - this.y, playerPos.x - this.x);
         //Get speed by axis in form of an object {x, y}
-        this.velocity = {
-            x: Math.cos(angle),
-            y: Math.sin(angle)
-        }
+        const newVelocity = new Point2d(Math.cos(angle), Math.sin(angle)).scale(this.speed);
+        this.velocity = newVelocity;
     }
 
 

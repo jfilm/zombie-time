@@ -19,32 +19,32 @@ viewport.style.height = viewportHeight + 'px';
 ctx.scale(viewportScale, viewportScale);
 
 
-let game = new GameManager(viewport, ctx);
+// let game = new GameManager(viewport, ctx);
 
 
 
 
-viewport.addEventListener('click', (event) => game.mouseClick(event));
-viewport.addEventListener('mousemove', (event) => game.mouseMove(event))
-document.addEventListener('keydown', (event) => game.keyDown(event));
-document.addEventListener('keyup', (event) => game.keyUp(event));
+// viewport.addEventListener('click', (event) => game.mouseClick(event));
+// viewport.addEventListener('mousemove', (event) => game.mouseMove(event))
+// document.addEventListener('keydown', (event) => game.keyDown(event));
+// document.addEventListener('keyup', (event) => game.keyUp(event));
 
 
 //Handle pause button
-document.querySelector(".pauseButton").addEventListener('click', () => {
-    if (game.state === gameState.RUNNING) {
-        game.state = gameState.PAUSED;
-    } else if (game.state === gameState.PAUSED) {
-        game.state = gameState.RUNNING;
-    }
-    drawFrame();
-})
+// document.querySelector(".pauseButton").addEventListener('click', () => {
+//     if (game.state === gameState.RUNNING) {
+//         game.state = gameState.PAUSED;
+//     } else if (game.state === gameState.PAUSED) {
+//         game.state = gameState.RUNNING;
+//     }
+//     drawFrame();
+// })
 
-//Handle a restart button
-document.querySelector('.restartButton').addEventListener('click', () => {
-    game.resetGame();
-    drawFrame();
-})
+// //Handle a restart button
+// document.querySelector('.restartButton').addEventListener('click', () => {
+//     game.resetGame();
+//     drawFrame();
+// })
 
 // Get DOM elements (messageContainers)
 const [winContainer, loseContainer, pauseContainer] = [
@@ -55,9 +55,8 @@ const [winContainer, loseContainer, pauseContainer] = [
 
 
 // Canvas refresher (please rewrite this comment, I don't know how to call this function 😅)
-function drawFrame() {
+function drawFrame(game) {
 
-    game.update();
     game.draw();
 
     switch (game.state) {
@@ -79,10 +78,38 @@ function drawFrame() {
             break;
     }
 
-    requestAnimationFrame(drawFrame);
+    requestAnimationFrame(() => drawFrame(game));
 }
 
-drawFrame();
+// drawFrame();
 
+function init() {
+  // Start up game
+  const game = new GameManager(viewport, ctx);
 
+  viewport.addEventListener('click', (event) => game.mouseClick(event));
+  viewport.addEventListener('mousemove', (event) => game.mouseMove(event))
+  document.addEventListener('keydown', (event) => game.keyDown(event));
+  document.addEventListener('keyup', (event) => game.keyUp(event));
+
+  //Handle pause button
+  document.querySelector(".pauseButton").addEventListener('click', () => {
+    if (game.state === gameState.RUNNING) {
+        game.state = gameState.PAUSED;
+    } else if (game.state === gameState.PAUSED) {
+        game.state = gameState.RUNNING;
+    }
+  })
+
+  //Handle a restart button
+  document.querySelector('.restartButton').addEventListener('click', () => {
+    game.resetGame();
+  })
+
+  setInterval(() => { game.update() }, 1 / 60);
+  // console.log(game);
+  drawFrame(game);
+}
+
+init();
 
