@@ -42,7 +42,7 @@ document.querySelector(".pauseButton").addEventListener('click', () => {
 
 //Handle a restart button
 document.querySelector('.restartButton').addEventListener('click', () => {
-    game = new GameManager(viewport, ctx)
+    game.resetGame();
     drawFrame();
 })
 

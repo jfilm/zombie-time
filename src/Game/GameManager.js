@@ -32,6 +32,12 @@ class GameManager {
     return this.viewport.height;
   }
 
+  resetGame() {
+    console.log("reset game");
+    this.game = new Game(this.width, this.height);
+    this.state = gameState.RUNNING;
+  }
+
   draw() {
     if (this.state == gameState.RUNNING) {
       this.game.draw(this.ctx);

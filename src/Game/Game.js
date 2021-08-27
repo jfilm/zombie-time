@@ -117,6 +117,10 @@ class Game {
 
     // Updating all enemies and 
     this.enemies.forEach(enemy => {
+      if (enemy.collidesWith(this.player)) {
+        this.player.takeDamage(10);
+        return; // Prevents the zombie from moving into the character
+      }
       enemy.findPlayer(this.player.x, this.player.y);
       enemy.update();
     });
