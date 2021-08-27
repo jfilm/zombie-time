@@ -30,34 +30,6 @@ ctx.scale(viewportScale, viewportScale);
 // document.addEventListener('keyup', (event) => game.keyUp(event));
 
 
-//Handle pause button
-// document.querySelector(".pauseButton").addEventListener('click', () => {
-//     if (game.state === gameState.RUNNING) {
-//         game.state = gameState.PAUSED;
-//     } else if (game.state === gameState.PAUSED) {
-//         game.state = gameState.RUNNING;
-//     }
-//     drawFrame();
-// })
-
-// //Handle a restart button
-// document.querySelector('.restartButton').addEventListener('click', () => {
-//     game.resetGame();
-//     drawFrame();
-// })
-document.querySelector(".pauseButton").addEventListener('click', () => {
-    if (game.state === gameState.RUNNING) {
-        game.state = gameState.PAUSED;
-    } else if (game.state === gameState.PAUSED) {
-        game.state = gameState.RUNNING;
-    }
-})
-
-//Handle a restart button
-document.querySelector('.restartButton').addEventListener('click', () => {
-    game.resetGame();
-})
-
 // Get DOM elements (messageContainers)
 const [winContainer, loseContainer, pauseContainer] = [
     document.querySelector(".win"),
@@ -114,9 +86,12 @@ function init() {
   })
 
   //Handle a restart button
-  document.querySelector('.restartButton').addEventListener('click', () => {
-    game.resetGame();
-  })
+  const buttons = document.getElementsByClassName("restartButton");
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener('click', () => {
+      game.resetGame();
+    });
+  }
 
   setInterval(() => { game.update() }, 1 / 60);
   // console.log(game);

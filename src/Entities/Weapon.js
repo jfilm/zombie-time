@@ -53,7 +53,7 @@ export class Weapon {
 
 }
 
-// Default weapo
+// Default weapon
 export const pistol = new Weapon();
 
 // Shotgun deals more damage, but moves slower
