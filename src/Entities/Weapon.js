@@ -5,50 +5,31 @@ import { Projectile } from "./Projectile";
 
 
 export class Weapon {
-    constructor(bulletSize = 5, bulletSpeed = 3, bulletDamage = 10, bulletHealth = 10, accuracy = 0.9) {
+    constructor(bulletSize = 5, bulletSpeed = 3, bulletDamage = 10, bulletHealth = 10, accuracy = 0.1) {
         this.bulletSize = bulletSize;
         this.bulletSpeed = bulletSpeed;
         this.bulletDamage = bulletDamage;
         this.bulletHealth = bulletHealth;
-        this.accuracy = accuracy; // TODO: add random spread based on `accuracy`
+        
+        // 1 means totally random spread, 0 means 100% accuracy
+        this.accuracy = accuracy; 
 
-        this.aim = {
-            x: 0,
-            y: 0,
-            radius: 70,
-            color: 'yellow',
-        }
+
     }
 
     shoot(event, playerPos) {
         //Calculate angle of projectile speed vector.
         const distance_x = event.offsetX - playerPos.x;
         const distance_y = event.offsetY - playerPos.y;
-        const angle = Math.atan2(distance_y, distance_x);
-        //Get speed by axis in form of object {x, y}
-        const direction = new Point2d(Math.cos(angle), Math.sin(angle));
+
+        //By default Math.atan2() returns values from -PI to +PI
+        //So this expression make an angle value absolute, from 0 to 2*PI for make it easier to count random angle.
+        const angle = Math.atan2(distance_y, distance_x) < 0 ? Math.PI + Math.abs(Math.atan2(distance_y, distance_x) + Math.PI) : Math.atan2(distance_y, distance_x);
+        // Angle after counting deviation based on the accuracy value
+        const randomAngle = angle + Math.random() *( Math.PI * this.accuracy) * (Math.random() < 0.5 ? -1 : 1);
+
+        const direction = new Point2d(Math.cos(randomAngle), Math.sin(randomAngle));
         return new Projectile(playerPos, this.bulletSize, this.bulletSpeed, direction, this.bulletDamage, this.bulletHealth);
-    }
-
-    setAimCoordinates(target, playerCoordinates) {
-        const dx = target.x - playerCoordinates.x
-        const dy = target.y - playerCoordinates.y
-
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        if (distance > this.aim.radius) {
-            this.aim.x = ((dx * this.aim.radius) / distance) + playerCoordinates.x;
-            this.aim.y = ((dy * this.aim.radius) / distance) + playerCoordinates.y;
-        } else {
-            this.aim.x = event.offsetX;
-            this.aim.y = event.offsetY;
-        }
-    }
-
-    drawAim(ctx) {
-        ctx.beginPath();
-        ctx.arc(this.aim.x, this.aim.y, 2, 0, Math.PI * 2, false);
-        ctx.fillStyle = "black";
-        ctx.fill();
     }
 
 }
