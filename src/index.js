@@ -37,13 +37,11 @@ document.querySelector(".pauseButton").addEventListener('click', () => {
     } else if (game.state === gameState.PAUSED) {
         game.state = gameState.RUNNING;
     }
-    drawFrame();
 })
 
 //Handle a restart button
 document.querySelector('.restartButton').addEventListener('click', () => {
     game.resetGame();
-    drawFrame();
 })
 
 // Get DOM elements (messageContainers)

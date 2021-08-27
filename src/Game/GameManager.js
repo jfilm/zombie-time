@@ -20,8 +20,8 @@ class GameManager {
     this.ctx = ctx;
     this.game = new Game(viewport.width, viewport.height);
 
-    // Game state may be: "running", "paused", "win", "lose" 
-    this.state = "running"
+    // Game state may be: RUNNING, PAUSED, WIN, LOSE, START
+    this.state = gameState.RUNNING;
   }
 
   get width() {

@@ -177,7 +177,7 @@ class Game {
     let x;
     let y;
 
-    // Assign a random coordinate just out of the viewport
+    // Assign a random coordinate that are on the boarder of the viewport
     if (Math.random() < 0.5) {
       x = Math.random() < 0.5 ? 0 - radius : viewport.width + radius;
       y = Math.random() * viewport.height;

@@ -1,7 +1,4 @@
 import { Projectile } from "./Projectile";
-const viewport = document.getElementById("viewport");
-
-
 
 export class Weapon {
     constructor(x, y) {
