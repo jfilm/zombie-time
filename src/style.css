@@ -7,7 +7,8 @@ body {
 
 canvas {
   margin: 50px auto;
-  background: #8ceca7;
+  /* background: #8ceca7; */
+  background: bisque;
   height: 100%;
 }
 #canvas-container {

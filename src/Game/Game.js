@@ -20,6 +20,7 @@ class Game {
     // this.waves = new WaveSet([new Wave(10, 10)]); // Testing victory, used shorter wave set
     this.waves = new WaveSet();
     this.enemiesKilled = 0;
+    this.score = 0;
 
     this.inputs = {
       up: false,
@@ -55,6 +56,7 @@ class Game {
   drawGui(ctx) {
     this.drawHealthBar(ctx);
     this.drawWaveCounter(ctx);
+    this.drawScore(ctx);
   }
 
   drawHealthBar(ctx) {
@@ -72,6 +74,13 @@ class Game {
     // Draw Green "health"
     ctx.fillStyle = "green";
     ctx.fillRect(this.width - 112, this.height - 22, currentHP, 10);
+  }
+
+  drawScore(ctx) {
+    ctx.font = "16 sans-serif";
+    ctx.fillStyle = "black";
+
+    ctx.fillText(`Score: ${this.score}`, this.width - 100, 20);
   }
 
   drawWaveCounter(ctx) {
@@ -142,6 +151,7 @@ class Game {
       const killed = enemy.hp <= 0;
       if (killed) {
         this.enemiesKilled++;
+        this.score += enemy.points;
       }
       return !killed;
     });

@@ -25,7 +25,6 @@ export class Wave {
   spawnEnemy(x, y) {
     const position = new Point2d(x, y);
     const enemy = this.spawnTable.roll();
-    console.log(this.spawnTable);
     if (enemy) {
       return enemy(position);
     }
@@ -65,7 +64,6 @@ export class WaveSet {
 
       const enemy = this.waves[this.currentWave].spawnEnemy(x, y);
       if (enemy) {
-
         enemyList.push(enemy);
       }
 
