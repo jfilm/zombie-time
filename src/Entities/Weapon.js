@@ -3,7 +3,7 @@ import { Projectile } from "./Projectile";
 import { cursorCoordinates } from "../utils/cursorCoordinates";
 
 export class Weapon {
-    constructor(bulletSize = 3, bulletSpeed = 3, bulletDamage = 5, bulletHealth = 1, accuracy = 0.05) {
+    constructor(bulletSize = 3, bulletSpeed = 3, bulletDamage = 5, bulletHealth = 1, accuracy = 0.9) {
         this.bulletSize = bulletSize;
         this.bulletSpeed = bulletSpeed;
         this.bulletDamage = bulletDamage;
@@ -11,7 +11,7 @@ export class Weapon {
 
         this.projectiles = []
 
-        // 1 means totally random spread, 0 means 100% accuracy
+        // <=0 means totally random spread, >=1 means 100% accuracy. 
         this.accuracy = accuracy;
 
         //  bullets/second
@@ -58,8 +58,9 @@ export class Weapon {
         //By default Math.atan2() returns values from -PI to +PI
         //So this expression make an angle value absolute, from 0 to 2*PI for make it easier to count random angle.
         const angle = Math.atan2(distance_y, distance_x) < 0 ? Math.PI + Math.abs(Math.atan2(distance_y, distance_x) + Math.PI) : Math.atan2(distance_y, distance_x);
+
         // Angle after counting deviation based on the accuracy value
-        const randomAngle = angle + Math.random() * (Math.PI * this.accuracy) * (Math.random() < 0.5 ? -1 : 1);
+        const randomAngle = angle + Math.random() * (Math.PI * (this.accuracy > 1 ? 0 : this.accuracy < 0 ? 1 : 1 - this.accuracy)) * (Math.random() < 0.5 ? -1 : 1);
 
         const direction = new Point2d(Math.cos(randomAngle), Math.sin(randomAngle));
 
