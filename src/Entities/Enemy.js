@@ -1,3 +1,4 @@
+import colors from "../utils/colors";
 import { Entity } from "./Entity";
 import { Point2d } from "./Point2d";
 const zombieImg = document.querySelector('#zombie');
@@ -30,13 +31,13 @@ export class Enemy extends Entity {
 }
 
 export function zombie(pos) {
-    return new Enemy(pos, 10, "brown", 0.8, 5, 5, 10);
+    return new Enemy(pos, 10, colors.zombie, 0.8, 5, 5, 10);
 }
 
 export function bigZombie(pos) {
-    return new Enemy(pos, 15, "orange", 0.5, 15, 15, 20);
+    return new Enemy(pos, 15, colors.bigZombie, 0.5, 15, 15, 20);
 }
 
 export function fastZombie(pos) {
-    return new Enemy(pos, 10, "green", 1.2, 1, 5, 5);
+    return new Enemy(pos, 10, colors.fastZombie, 1.2, 1, 5, 5);
 }
