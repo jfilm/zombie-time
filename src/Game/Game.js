@@ -2,6 +2,7 @@ import { Enemy } from "../Entities/Enemy";
 import { Player } from "../Entities/Player";
 import { Point2d } from "../Entities/Point2d";
 import { gameState } from "./GameManager";
+import { Wave, WaveSet } from "./Wave";
 
 // Arbitrary values, feel free to change
 const waves = [20, 30, 35, 50, 80];
@@ -16,11 +17,9 @@ class Game {
     this.player = new Player(width / 2, height / 2);
     this.enemies = [];
     this.projectiles = [];
-    this.waves = waves;
-    this.waveCounter = 0;
+    // this.waves = new WaveSet([new Wave(10, 10)]); // Testing victory, used shorter wave set
+    this.waves = new WaveSet();
     this.enemiesKilled = 0;
-
-    this.canSpawn = true;
 
     this.inputs = {
       up: false,
@@ -32,7 +31,7 @@ class Game {
 
   /// Draw all entities and GUI on the provided context
   draw(ctx) {
-    ctx.clearRect(0, 0, this.width, this.height);
+    this.clearScreen(ctx);
     this.player.draw(ctx);
 
     //Draw projectiles
@@ -47,6 +46,10 @@ class Game {
 
     // Draw the GUI last so it rests on top of the entities
     this.drawGui(ctx);
+  }
+
+  clearScreen(ctx) {
+    ctx.clearRect(0, 0, this.width, this.height);
   }
 
   drawGui(ctx) {
@@ -72,13 +75,14 @@ class Game {
   }
 
   drawWaveCounter(ctx) {
-    const wave = this.waveCounter + 1;
+    const wave = this.waves.currentWave + 1;
+    // console.log(this.waves.waveCounter);
     const maxWaves = this.waves.length;
     ctx.font = "16px sans-serif"
     ctx.fillStyle = "black";
     ctx.fillText(`Wave ${wave}/${maxWaves}`, 10, 20)
 
-    const enemiesRemaining = this.waves[this.waveCounter] - this.enemiesKilled;
+    const enemiesRemaining = this.waves.enemiesToKill - this.enemiesKilled;
     ctx.fillText(`Enemies Remaining: ${enemiesRemaining}`, 10, 38)
   }
 
@@ -142,28 +146,28 @@ class Game {
       return !killed;
     });
 
-    this.spawnEnemies();
+    this.waves.spawnEnemies(this.enemies);
 
     // Check if wave is cleared
-    if (this.waves[this.waveCounter] <= this.enemiesKilled) {
-      this.resetWave();
+    if (this.waves.enemiesToKill <= this.enemiesKilled) {
+      this.nextWave();
     }
 
     if (this.player.hp <= 0) {
       return gameState.LOSE;
-    } else if (this.waveCounter >= this.waves.length) {
+    } else if (this.waves.finished) {
       return gameState.WIN;
     }
 
     return gameState.RUNNING;
   }
 
-  resetWave() {
+  nextWave() {
     this.enemies = [];
     this.projectiles = [];
     // Should we reset the players position?
 
-    this.waveCounter++;
+    this.waves.nextWave();
     this.enemiesKilled = 0;
   }
 

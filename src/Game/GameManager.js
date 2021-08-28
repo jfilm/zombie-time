@@ -46,7 +46,11 @@ class GameManager {
 
   update() {
     if (this.state === gameState.RUNNING) {
-      this.state = this.game.update();
+      const newState = this.game.update();
+      if (newState !== gameState.RUNNING) {
+        this.game.clearScreen(this.ctx);
+      }
+      this.state = newState;
     }
   }
 
