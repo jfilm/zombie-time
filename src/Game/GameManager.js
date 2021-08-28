@@ -48,6 +48,13 @@ class GameManager {
     if (this.state === gameState.RUNNING) {
       const newState = this.game.update();
       if (newState !== gameState.RUNNING) {
+        // Update score
+        const scoreElements = document.getElementsByClassName("score");
+        for (let i = 0; i < scoreElements.length; i++) {
+          scoreElements[i].innerHTML = this.game.score;
+        }
+
+        // clear the field
         this.game.clearScreen(this.ctx);
       }
       this.state = newState;
