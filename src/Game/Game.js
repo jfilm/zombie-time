@@ -16,7 +16,7 @@ class Game {
     this.height = height;
     this.player = new Player(width / 2, height / 2);
     this.enemies = [];
-    this.projectiles = [];
+    this.player.weapon.projectiles = [];
     this.pickups = [];
     this.waves = new WaveSet();
     this.enemiesKilled = 0;
@@ -150,7 +150,7 @@ class Game {
     })
 
     // Remove projectiles that are out of bounds
-    this.projectiles = this.projectiles.filter(projectile => {
+    this.player.weapon.projectiles = this.player.weapon.projectiles.filter(projectile => {
       return (
         projectile.x > 0 &&
         projectile.y > 0 &&
@@ -265,35 +265,19 @@ class Game {
 
   handleMouseMove({ offsetX, offsetY }) {
     const target = new Point2d(offsetX, offsetY)
-    // this.player.weapon.setAimCoordinates(target, this.player.position)
   }
 
   handleMouseClick(event) {
-    // const target = new Point2d(offsetX, offsetY);
-    const projectile = this.player.weapon.shoot(event, this.player.position);
-    if (projectile) {
-      this.player.weapon.projectiles.push(projectile);
-    }
+
   }
   handleMouseUp(event) {
     console.log("up");
     this.player.weapon.releaseTrigger()
-    // const target = new Point2d(offsetX, offsetY);
-    // const projectile = this.player.weapon.shoot(event, this.player.position);
-    // if (projectile) {
-    //   this.player.weapon.projectiles.push(projectile);
-    // }
   }
 
   handleMouseDown(event) {
     console.log("down");
-    this.player.weapon.pullTrigger(event, this.player.position)
-
-    // // const target = new Point2d(offsetX, offsetY);
-    // const projectile = this.player.weapon.shoot(event, this.player.position);
-    // if (projectile) {
-    //   this.player.weapon.projectiles.push(projectile);
-    // }
+    this.player.weapon.pullTrigger()
   }
 
 

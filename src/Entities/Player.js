@@ -11,36 +11,42 @@ export class Player extends Entity {
     constructor(x, y) {
         super(new Point2d(x, y), 10, colors.player, 2, 0, playerMaxHP);
         this.weapon = pistol;
+        this.weapon.playerPos = this.position;
         this.invincible = false;
     }
 
     update({ right, left, up, down }) {
+
         const vX = (right - left);
         const vY = (down - up);
-        if (vX || vY ) {
+        if (vX || vY) {
             this.velocity = new Point2d(vX, vY).normal().scale(this.speed);
         } else {
             this.velocity = new Point2d();
         }
+
+
+        //Updates weapon position
+        this.weapon.playerPos = this.position;
 
         this.position = this.position.add(this.velocity)
     }
 
     takeDamage(damage) {
         if (!this.invincible) {
-          this.hp -= damage;
-          this.hp = Math.max(this.hp, 0);
-    
-          // Turn on "invincibility frames"
-          this.invincible = true;
-          const originalColor = this.color;
-          this.color = "red";
-    
-          // Turn off "invincibility frames"
-          setTimeout(() => {
-            this.invincible = false;
-            this.color = originalColor;
-          }, 400);
+            this.hp -= damage;
+            this.hp = Math.max(this.hp, 0);
+
+            // Turn on "invincibility frames"
+            this.invincible = true;
+            const originalColor = this.color;
+            this.color = "red";
+
+            // Turn off "invincibility frames"
+            setTimeout(() => {
+                this.invincible = false;
+                this.color = originalColor;
+            }, 400);
         }
     }
 }

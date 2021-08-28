@@ -1,5 +1,6 @@
 import { Point2d } from "./Point2d";
 import { Projectile } from "./Projectile";
+import { cursorCoordinates } from "../utils/cursorCoordinates";
 
 export class Weapon {
     constructor(bulletSize = 3, bulletSpeed = 3, bulletDamage = 5, bulletHealth = 1, accuracy = 0.05) {
@@ -16,31 +17,43 @@ export class Weapon {
         //  bullets/second
         this.rateOfFire = 3;
 
+        this.playerPos;
+
         this.interval;
 
-
+        this.canShoot = true;
     }
 
-    pullTrigger(event, playerPos) {
-        // this.shoot()
+    pullTrigger() {
+        const coordinates = cursorCoordinates();
+
+        //Set limit on the rate of fire
+        if (this.canShoot) {
+            this.shoot(coordinates, this.playerPos)
+            setTimeout(() => {
+                this.canShoot = true
+            }, 1000 / this.rateOfFire)
+
+        }
+
+        //Make automatic shooting possible
         this.interval = setInterval(() => {
-            console.log("hello");
-            
-            this.shoot(event, playerPos)
-            
-        }, 100)
+            this.shoot(coordinates, this.playerPos)
+
+        }, 1000 / this.rateOfFire)
+
+        this.canShoot = false;
     }
 
     releaseTrigger() {
         clearInterval(this.interval)
-
     }
 
-    shoot(event, playerPos) {
+    shoot(cursorCoordinates, playerPos) {
 
         //Calculate angle of projectile speed vector.
-        const distance_x = event.offsetX - playerPos.x;
-        const distance_y = event.offsetY - playerPos.y;
+        const distance_x = cursorCoordinates.x - playerPos.x;
+        const distance_y = cursorCoordinates.y - playerPos.y;
 
         //By default Math.atan2() returns values from -PI to +PI
         //So this expression make an angle value absolute, from 0 to 2*PI for make it easier to count random angle.
@@ -49,7 +62,10 @@ export class Weapon {
         const randomAngle = angle + Math.random() * (Math.PI * this.accuracy) * (Math.random() < 0.5 ? -1 : 1);
 
         const direction = new Point2d(Math.cos(randomAngle), Math.sin(randomAngle));
-        this.projectiles.push(new Projectile(playerPos, this.bulletSize, this.bulletSpeed, direction, this.bulletDamage, this.bulletHealth));
+
+        const projectile = new Projectile(new Point2d(playerPos.x, playerPos.y), this.bulletSize, this.bulletSpeed, direction, this.bulletDamage, this.bulletHealth)
+
+        this.projectiles.push(projectile)
 
     }
 
