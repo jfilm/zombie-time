@@ -173,7 +173,7 @@ class Game {
     // Remove dead picksup
     this.pickups = this.pickups.filter(pickup => pickup.hp > 0);
 
-    // this.waves.spawnEnemies(this.enemies, this.pickups);
+    this.waves.spawnEnemies(this.enemies, this.pickups);
 
     // Check if wave is cleared
     if (this.waves.enemiesToKill <= this.enemiesKilled) {
