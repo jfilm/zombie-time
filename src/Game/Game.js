@@ -17,7 +17,7 @@ class Game {
     this.player = new Player(width / 2, height / 2);
     this.enemies = [];
     this.projectiles = [];
-    // this.waves = new WaveSet([new Wave(10, 10)]); // Testing victory, used shorter wave set
+    this.pickups = [];
     this.waves = new WaveSet();
     this.enemiesKilled = 0;
     this.score = 0;
@@ -44,6 +44,11 @@ class Game {
     this.enemies.forEach(enemy => {
       enemy.draw(ctx);
     });
+
+    // Draw pickups
+    this.pickups.forEach(pickup => {
+      pickup.draw(ctx);
+    })
 
     // Draw the GUI last so it rests on top of the entities
     this.drawGui(ctx);
@@ -84,7 +89,7 @@ class Game {
   }
 
   drawWaveCounter(ctx) {
-    const wave = this.waves.currentWave + 1;
+    const wave = this.waves.waveCounter + 1;
     // console.log(this.waves.waveCounter);
     const maxWaves = this.waves.length;
     ctx.font = "16px sans-serif"
@@ -136,6 +141,15 @@ class Game {
       enemy.update();
     });
 
+    // check each pickup for collision
+    this.pickups.forEach(pickup => {
+      if (pickup.collidesWith(this.player)) {
+        pickup.pickup(this.player);
+        pickup.takeDamage(10);
+      }
+    })
+
+    // Remove projectiles that are out of bounds
     this.projectiles = this.projectiles.filter(projectile => {
       return (
         projectile.x > 0 &&
@@ -156,7 +170,10 @@ class Game {
       return !killed;
     });
 
-    this.waves.spawnEnemies(this.enemies);
+    // Remove dead picksup
+    this.pickups = this.pickups.filter(pickup => pickup.hp > 0);
+
+    this.waves.spawnEnemies(this.enemies, this.pickups);
 
     // Check if wave is cleared
     if (this.waves.enemiesToKill <= this.enemiesKilled) {

@@ -17,7 +17,7 @@ export class RandomTable {
   }
 
   roll() {
-    let roll = randomInt(this.totalWeight);
+    let roll = randomInt(this.totalWeight - 1);
     let index = 0;
     while (roll > 0) {
       const {weight, item} = this.items[index];
@@ -28,5 +28,6 @@ export class RandomTable {
       roll -= weight;
       index++;
     }
+    return this.items[this.items.length - 1];
   }
 }

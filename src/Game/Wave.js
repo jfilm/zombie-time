@@ -1,25 +1,36 @@
 import { bigZombie, Enemy, fastZombie, zombie } from "../Entities/Enemy";
+import { healthPickup } from "../Entities/Pickups";
 import { Point2d } from "../Entities/Point2d";
+import { randomInt } from "../utils";
 import { RandomTable } from "./RandomTable";
 
 // Feel free to rebalance these tables
-const defaultTable = new RandomTable().addItem(10,zombie).addItem(5, fastZombie);
+const defaultTable = new RandomTable()
+  .addItem(10, { enemy: zombie })
+  .addItem(5, { enemy: fastZombie });
 
 const strongerTable = new RandomTable()
-  .addItem(20,zombie)
-  .addItem(15, fastZombie)
-  .addItem(5, bigZombie);
+  .addItem(2, { pickup: healthPickup })
+  .addItem(20, { enemy: zombie })
+  .addItem(15, { enemy: fastZombie })
+  .addItem(5, { enemy: bigZombie });
 
 const strongestTable = new RandomTable()
-  .addItem(15,zombie)
-  .addItem(15, fastZombie)
-  .addItem(10, bigZombie);
+  .addItem(2, { pickup: healthPickup })
+  .addItem(15, { enemy: zombie})
+  .addItem(15, { enemy: fastZombie })
+  .addItem(10, { enemy: bigZombie });
 
 export class Wave {
   constructor(enemiesToKill, maxEnemies, spawnTable = defaultTable) {
     this.enemiesToKill = enemiesToKill;
     this.maxEnemies = maxEnemies;
     this.spawnTable = spawnTable;
+    this.maxPickups = 3;
+  }
+
+  getSpawn() {
+    return this.spawnTable.roll();
   }
 
   spawnEnemy(x, y) {
@@ -42,29 +53,47 @@ const defaultWaves = [
 export class WaveSet {
   constructor(waves = defaultWaves) {
     this.waves = waves;
-    this.currentWave = 0;
+    this.waveCounter = 0;
     this.canSpawn = true;
   }
 
-  spawnEnemies(enemyList) {
-    const maxEnemies = this.waves[this.currentWave].maxEnemies;
-    if (this.canSpawn && enemyList.length < maxEnemies) {
-      const radius = 20;
-      let x;
-      let y;
+  get currentWave() {
+    return this.waves[this.waveCounter];
+  }
 
-      // Assign a random coordinate that are on the boarder of the viewport
-      if (Math.random() < 0.5) {
-        x = Math.random() < 0.5 ? 0 - radius : viewport.width + radius;
-        y = Math.random() * viewport.height;
-      } else {
-        x = Math.random() * viewport.width;
-        y = Math.random() < 0.5 ? 0 - radius : viewport.height + radius;
-      }
+  spawnEnemies(enemyList, pickupList) {
+    const maxEnemies = this.currentWave.maxEnemies;
+    const maxPickups = this.currentWave.maxPickups;
+    if (this.canSpawn) {
+      const spawnedItem = this.currentWave.getSpawn();
+      if (spawnedItem.pickup &&  maxPickups > pickupList.length) {
+        const x = randomInt(viewport.width - 20);
+        const y = randomInt(viewport.height - 20);
+        const position = new Point2d(x, y);
+        const pickup = spawnedItem.pickup(position);
+        pickupList.push(pickup);
+      } else if (spawnedItem.enemy && maxEnemies > enemyList.length) {
+        
+        const radius = 20;
+        let x;
+        let y;
+        
+        // Assign a random coordinate that are on the boarder of the viewport
+        if (Math.random() < 0.5) {
+          x = Math.random() < 0.5 ? 0 - radius : viewport.width + radius;
+          y = Math.random() * viewport.height;
+        } else {
+          x = Math.random() * viewport.width;
+          y = Math.random() < 0.5 ? 0 - radius : viewport.height + radius;
+        }
 
-      const enemy = this.waves[this.currentWave].spawnEnemy(x, y);
-      if (enemy) {
-        enemyList.push(enemy);
+        const position = new Point2d(x, y);
+        
+        const enemy = spawnedItem.enemy(position);
+        if (enemy) {
+          enemyList.push(enemy);
+        }
+        
       }
 
       // Disable enemy spawning for 1 second
@@ -76,11 +105,11 @@ export class WaveSet {
   }
 
   get enemiesToKill() {
-    return this.waves[this.currentWave].enemiesToKill;
+    return this.waves[this.waveCounter].enemiesToKill;
   }
 
   get finished() {
-    return this.currentWave >= this.waves.length;
+    return this.waveCounter >= this.waves.length;
   }
 
   get length() {
@@ -88,7 +117,7 @@ export class WaveSet {
   }
 
   nextWave() {
-    this.currentWave++;
+    this.waveCounter++;
     
     // Set spawning off for 8 seconds
     this.canSpawn = false;
