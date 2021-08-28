@@ -29,17 +29,14 @@ export class Enemy extends Entity {
     // }
 }
 
-export function zombie(x, y) {
-    const pos = new Point2d(x, y);
-    return new Enemy(pos, 10, "brown", 0.8, 5, 5, 5);
+export function zombie(pos) {
+    return new Enemy(pos, 10, "brown", 0.8, 5, 5, 10);
 }
 
-export function bigZombie(x, y) {
-    const pos = new Point2d(x, y);
+export function bigZombie(pos) {
     return new Enemy(pos, 15, "orange", 0.5, 15, 15, 20);
 }
 
-export function fastZombie(x, y) {
-    const pos = new Point2d(x, y);
-    return new Enemy(pos, 10, "green", 1.2, 1, 5, 10);
+export function fastZombie(pos) {
+    return new Enemy(pos, 10, "green", 1.2, 1, 5, 5);
 }
