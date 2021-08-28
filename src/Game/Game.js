@@ -16,7 +16,7 @@ class Game {
     this.height = height;
     this.player = new Player(width / 2, height / 2);
     this.enemies = [];
-    this.player.weapon.projectiles = [];
+    this.projectiles = [];
     this.pickups = [];
     this.waves = new WaveSet();
     this.enemiesKilled = 0;
@@ -36,7 +36,7 @@ class Game {
     this.player.draw(ctx);
 
     //Draw projectiles
-    this.player.weapon.projectiles.forEach(projectile => {
+    this.projectiles.forEach(projectile => {
       projectile.draw(ctx);
     });
 
@@ -120,7 +120,7 @@ class Game {
 
 
     // update projectiles
-    this.player.weapon.projectiles.forEach(projectile => {
+    this.projectiles.forEach(projectile => {
       projectile.update();
       this.enemies.forEach(enemy => {
         if (enemy.collidesWith(projectile)) {
@@ -150,7 +150,7 @@ class Game {
     })
 
     // Remove projectiles that are out of bounds
-    this.player.weapon.projectiles = this.player.weapon.projectiles.filter(projectile => {
+    this.projectiles = this.projectiles.filter(projectile => {
       return (
         projectile.x > 0 &&
         projectile.y > 0 &&
@@ -173,7 +173,7 @@ class Game {
     // Remove dead picksup
     this.pickups = this.pickups.filter(pickup => pickup.hp > 0);
 
-    this.waves.spawnEnemies(this.enemies, this.pickups);
+    // this.waves.spawnEnemies(this.enemies, this.pickups);
 
     // Check if wave is cleared
     if (this.waves.enemiesToKill <= this.enemiesKilled) {
@@ -191,7 +191,7 @@ class Game {
 
   nextWave() {
     this.enemies = [];
-    this.player.weapon.projectiles = [];
+    this.projectiles = [];
     // Should we reset the players position?
 
     this.waves.nextWave();
@@ -270,14 +270,13 @@ class Game {
   handleMouseClick(event) {
 
   }
+
   handleMouseUp(event) {
-    console.log("up");
     this.player.weapon.releaseTrigger()
   }
 
   handleMouseDown(event) {
-    console.log("down");
-    this.player.weapon.pullTrigger()
+    this.player.weapon.pullTrigger(this.projectiles)
   }
 
 

@@ -9,8 +9,6 @@ export class Weapon {
         this.bulletDamage = bulletDamage;
         this.bulletHealth = bulletHealth;
 
-        this.projectiles = []
-
         // <=0 means totally random spread, >=1 means 100% accuracy. 
         this.accuracy = accuracy;
 
@@ -22,14 +20,20 @@ export class Weapon {
         this.interval;
 
         this.canShoot = true;
+
+        this.bulletsInOneShoot = 1;
     }
 
-    pullTrigger() {
+    pullTrigger(projectilesArray) {
         const coordinates = cursorCoordinates();
 
         //Set limit on the rate of fire
         if (this.canShoot) {
-            this.shoot(coordinates, this.playerPos)
+
+            for (let i = 0; i < this.bulletsInOneShoot; i++) {
+                this.shoot(coordinates, this.playerPos, projectilesArray)
+            }
+
             setTimeout(() => {
                 this.canShoot = true
             }, 1000 / this.rateOfFire)
@@ -38,7 +42,9 @@ export class Weapon {
 
         //Make automatic shooting possible
         this.interval = setInterval(() => {
-            this.shoot(coordinates, this.playerPos)
+            for (let i = 0; i < this.bulletsInOneShoot; i++) {
+                this.shoot(coordinates, this.playerPos, projectilesArray)
+            }
 
         }, 1000 / this.rateOfFire)
 
@@ -49,7 +55,7 @@ export class Weapon {
         clearInterval(this.interval)
     }
 
-    shoot(cursorCoordinates, playerPos) {
+    shoot(cursorCoordinates, playerPos, projectilesArray) {
 
         //Calculate angle of projectile speed vector.
         const distance_x = cursorCoordinates.x - playerPos.x;
@@ -66,7 +72,7 @@ export class Weapon {
 
         const projectile = new Projectile(new Point2d(playerPos.x, playerPos.y), this.bulletSize, this.bulletSpeed, direction, this.bulletDamage, this.bulletHealth)
 
-        this.projectiles.push(projectile)
+        projectilesArray.push(projectile)
 
     }
 
