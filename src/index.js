@@ -81,7 +81,11 @@ function init() {
     });
   }
 
-  setInterval(() => { game.update() }, 1 / 60);
+  setInterval(() => { 
+    if (document.hasFocus()) {
+      game.update(); 
+    }
+  }, 1 / 60);
   // console.log(game);
   drawFrame(game);
 }
