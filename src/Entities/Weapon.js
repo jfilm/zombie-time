@@ -3,7 +3,7 @@ import { Projectile } from "./Projectile";
 import { cursorCoordinates } from "../utils/cursorCoordinates";
 
 export class Weapon {
-    constructor(bulletSize = 3, bulletSpeed = 3, bulletDamage = 5, bulletHealth = 1, accuracy = 0.9) {
+    constructor(bulletSize = 3, bulletSpeed = 3, bulletDamage = 5, bulletHealth = 1, accuracy = 0.9, bulletsInOneShoot = 1) {
         this.bulletSize = bulletSize;
         this.bulletSpeed = bulletSpeed;
         this.bulletDamage = bulletDamage;
@@ -21,7 +21,7 @@ export class Weapon {
 
         this.canShoot = true;
 
-        this.bulletsInOneShoot = 1;
+        this.bulletsInOneShoot = bulletsInOneShoot;
     }
 
     pullTrigger(projectilesArray) {
@@ -83,4 +83,4 @@ export const pistol = new Weapon();
 
 // Shotgun deals more damage, but moves slower
 // shotgun bullets can also go through two normal zombies
-export const shotgun = new Weapon(7, 2, 15, 20, 0.15);
+export const shotgun = new Weapon(2, 2, 15, 20, 0.9, 5);
