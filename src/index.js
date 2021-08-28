@@ -1,8 +1,7 @@
 import './style.css';
 import { GameManager, gameState } from './Game/GameManager';
 
-const dpr = window.devicePixelRatio;
-console.log(dpr);
+// const dpr = window.devicePixelRatio;
 const viewport = document.getElementById("viewport");
 const ctx = viewport.getContext("2d");
 
@@ -76,11 +75,18 @@ function init() {
   })
 
   //Handle a restart button
-  document.querySelector('.restartButton').addEventListener('click', () => {
-    game.resetGame();
-  })
+  const buttons = document.getElementsByClassName("restartButton");
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener('click', () => {
+      game.resetGame();
+    });
+  }
 
-  setInterval(() => { game.update() }, 1 / 60);
+  setInterval(() => { 
+    if (document.hasFocus()) {
+      game.update(); 
+    }
+  }, 1 / 60);
   // console.log(game);
   drawFrame(game);
 }

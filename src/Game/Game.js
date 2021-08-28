@@ -3,9 +3,11 @@ import { Player } from "../Entities/Player";
 import { Point2d } from "../Entities/Point2d";
 import { Projectile } from "../Entities/Projectile";
 import { gameState } from "./GameManager";
+import { Wave, WaveSet } from "./Wave";
 
 // Arbitrary values, feel free to change
 const waves = [20, 30, 35, 50, 80];
+// const waves = [5];
 
 /// This class will handle the actual game logic like managing entities
 class Game {
@@ -14,11 +16,11 @@ class Game {
     this.height = height;
     this.player = new Player(width / 2, height / 2);
     this.enemies = [];
-    this.waves = waves;
-    this.waveCounter = 0;
+    this.projectiles = [];
+    this.pickups = [];
+    this.waves = new WaveSet();
     this.enemiesKilled = 0;
-
-    this.canSpawn = true;
+    this.score = 0;
 
     this.inputs = {
       up: false,
@@ -30,7 +32,7 @@ class Game {
 
   /// Draw all entities and GUI on the provided context
   draw(ctx) {
-    ctx.clearRect(0, 0, this.width, this.height);
+    this.clearScreen(ctx);
     this.player.draw(ctx);
 
     //Draw projectiles
@@ -43,13 +45,23 @@ class Game {
       enemy.draw(ctx);
     });
 
+    // Draw pickups
+    this.pickups.forEach(pickup => {
+      pickup.draw(ctx);
+    })
+
     // Draw the GUI last so it rests on top of the entities
     this.drawGui(ctx);
+  }
+
+  clearScreen(ctx) {
+    ctx.clearRect(0, 0, this.width, this.height);
   }
 
   drawGui(ctx) {
     this.drawHealthBar(ctx);
     this.drawWaveCounter(ctx);
+    this.drawScore(ctx);
   }
 
   drawHealthBar(ctx) {
@@ -69,14 +81,22 @@ class Game {
     ctx.fillRect(this.width - 112, this.height - 22, currentHP, 10);
   }
 
+  drawScore(ctx) {
+    ctx.font = "16 sans-serif";
+    ctx.fillStyle = "black";
+
+    ctx.fillText(`Score: ${this.score}`, this.width - 100, 20);
+  }
+
   drawWaveCounter(ctx) {
-    const wave = this.waveCounter + 1;
+    const wave = this.waves.waveCounter + 1;
+    // console.log(this.waves.waveCounter);
     const maxWaves = this.waves.length;
     ctx.font = "16px sans-serif"
     ctx.fillStyle = "black";
     ctx.fillText(`Wave ${wave}/${maxWaves}`, 10, 20)
 
-    const enemiesRemaining = this.waves[this.waveCounter] - this.enemiesKilled;
+    const enemiesRemaining = this.waves.enemiesToKill - this.enemiesKilled;
     ctx.fillText(`Enemies Remaining: ${enemiesRemaining}`, 10, 38)
   }
 
@@ -121,7 +141,16 @@ class Game {
       enemy.update();
     });
 
-    this.player.weapon.projectiles = this.player.weapon.projectiles.filter(projectile => {
+    // check each pickup for collision
+    this.pickups.forEach(pickup => {
+      if (pickup.collidesWith(this.player)) {
+        pickup.pickup(this.player);
+        pickup.takeDamage(10);
+      }
+    })
+
+    // Remove projectiles that are out of bounds
+    this.projectiles = this.projectiles.filter(projectile => {
       return (
         projectile.x > 0 &&
         projectile.y > 0 &&
@@ -136,32 +165,36 @@ class Game {
       const killed = enemy.hp <= 0;
       if (killed) {
         this.enemiesKilled++;
+        this.score += enemy.points;
       }
       return !killed;
     });
 
-    // this.spawnEnemies();
+    // Remove dead picksup
+    this.pickups = this.pickups.filter(pickup => pickup.hp > 0);
+
+    this.waves.spawnEnemies(this.enemies, this.pickups);
 
     // Check if wave is cleared
-    if (this.waves[this.waveCounter] <= this.enemiesKilled) {
-      this.resetWave();
+    if (this.waves.enemiesToKill <= this.enemiesKilled) {
+      this.nextWave();
     }
 
     if (this.player.hp <= 0) {
       return gameState.LOSE;
-    } else if (this.waveCounter >= this.waves.length) {
+    } else if (this.waves.finished) {
       return gameState.WIN;
     }
 
     return gameState.RUNNING;
   }
 
-  resetWave() {
+  nextWave() {
     this.enemies = [];
     this.player.weapon.projectiles = [];
     // Should we reset the players position?
 
-    this.waveCounter++;
+    this.waves.nextWave();
     this.enemiesKilled = 0;
   }
 

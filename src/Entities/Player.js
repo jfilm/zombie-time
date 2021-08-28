@@ -1,6 +1,7 @@
+import colors from "../utils/colors";
 import { Entity } from "./Entity";
 import { Point2d } from "./Point2d";
-import { shotgun, Weapon } from "./Weapon";
+import { pistol, shotgun, Weapon } from "./Weapon";
 
 // const playerImg = document.getElementById('player');
 
@@ -8,8 +9,8 @@ export const playerMaxHP = 100;
 
 export class Player extends Entity {
     constructor(x, y) {
-        super(new Point2d(x, y), 15, "blue", 2, 0, playerMaxHP);
-        this.weapon = shotgun;
+        super(new Point2d(x, y), 10, colors.player, 2, 0, playerMaxHP);
+        this.weapon = pistol;
         this.invincible = false;
     }
 

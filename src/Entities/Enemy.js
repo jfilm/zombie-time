@@ -1,10 +1,12 @@
+import colors from "../utils/colors";
 import { Entity } from "./Entity";
 import { Point2d } from "./Point2d";
 const zombieImg = document.querySelector('#zombie');
 
 export class Enemy extends Entity {
-    constructor(x, y) {
-        super(new Point2d(x, y), 15, "brown", 0.7);
+    constructor(position, radius, color, speed, attack, health, points) {
+        super(position, radius, color, speed, attack, health);
+        this.points = points;
     }
 
     findPlayer(playerPos) {
@@ -26,5 +28,16 @@ export class Enemy extends Entity {
     //     //Draw and center the image
     //     ctx.drawImage(zombieImg, this.x - this.radius, this.y - this.radius, this.radius * 2, this.radius * 2);
     // }
+}
 
+export function zombie(pos) {
+    return new Enemy(pos, 10, colors.zombie, 0.8, 5, 5, 10);
+}
+
+export function bigZombie(pos) {
+    return new Enemy(pos, 15, colors.bigZombie, 0.5, 15, 15, 20);
+}
+
+export function fastZombie(pos) {
+    return new Enemy(pos, 10, colors.fastZombie, 1.2, 1, 5, 5);
 }

@@ -2,7 +2,7 @@ import { Point2d } from "./Point2d";
 import { Projectile } from "./Projectile";
 
 export class Weapon {
-    constructor(bulletSize = 5, bulletSpeed = 3, bulletDamage = 10, bulletHealth = 10, accuracy = 0.1) {
+    constructor(bulletSize = 3, bulletSpeed = 3, bulletDamage = 5, bulletHealth = 1, accuracy = 0.05) {
         this.bulletSize = bulletSize;
         this.bulletSpeed = bulletSpeed;
         this.bulletDamage = bulletDamage;
@@ -60,4 +60,4 @@ export const pistol = new Weapon();
 
 // Shotgun deals more damage, but moves slower
 // shotgun bullets can also go through two normal zombies
-export const shotgun = new Weapon(7, 2, 15, 20);
+export const shotgun = new Weapon(7, 2, 15, 20, 0.15);
