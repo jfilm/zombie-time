@@ -60,6 +60,8 @@ function init() {
   const game = new GameManager(viewport, ctx);
 
   viewport.addEventListener('click', (event) => game.mouseClick(event));
+  viewport.addEventListener('mousedown', (event) => game.mouseDown(event));
+  viewport.addEventListener('mouseup', (event) => game.mouseUp(event));
   viewport.addEventListener('mousemove', (event) => game.mouseMove(event))
   document.addEventListener('keydown', (event) => game.keyDown(event));
   document.addEventListener('keyup', (event) => game.keyUp(event));

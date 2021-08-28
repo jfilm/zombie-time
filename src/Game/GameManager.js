@@ -82,6 +82,18 @@ class GameManager {
       this.game.handleMouseClick(event)
     }
   }
+
+  mouseUp(event) {
+    if (this.state === gameState.RUNNING) {
+      this.game.handleMouseUp(event)
+    }
+  }
+
+  mouseDown(event) {
+    if (this.state === gameState.RUNNING) {
+      this.game.handleMouseDown(event)
+    }
+  }
 }
 
 export {

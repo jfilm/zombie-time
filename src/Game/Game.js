@@ -1,6 +1,7 @@
 import { Enemy } from "../Entities/Enemy";
 import { Player } from "../Entities/Player";
 import { Point2d } from "../Entities/Point2d";
+import { Projectile } from "../Entities/Projectile";
 import { gameState } from "./GameManager";
 
 // Arbitrary values, feel free to change
@@ -11,10 +12,8 @@ class Game {
   constructor(width, height) {
     this.width = width;
     this.height = height;
-
     this.player = new Player(width / 2, height / 2);
     this.enemies = [];
-    this.projectiles = [];
     this.waves = waves;
     this.waveCounter = 0;
     this.enemiesKilled = 0;
@@ -35,7 +34,7 @@ class Game {
     this.player.draw(ctx);
 
     //Draw projectiles
-    this.projectiles.forEach(projectile => {
+    this.player.weapon.projectiles.forEach(projectile => {
       projectile.draw(ctx);
     });
 
@@ -101,7 +100,7 @@ class Game {
 
 
     // update projectiles
-    this.projectiles.forEach(projectile => {
+    this.player.weapon.projectiles.forEach(projectile => {
       projectile.update();
       this.enemies.forEach(enemy => {
         if (enemy.collidesWith(projectile)) {
@@ -122,7 +121,7 @@ class Game {
       enemy.update();
     });
 
-    this.projectiles = this.projectiles.filter(projectile => {
+    this.player.weapon.projectiles = this.player.weapon.projectiles.filter(projectile => {
       return (
         projectile.x > 0 &&
         projectile.y > 0 &&
@@ -141,7 +140,7 @@ class Game {
       return !killed;
     });
 
-    this.spawnEnemies();
+    // this.spawnEnemies();
 
     // Check if wave is cleared
     if (this.waves[this.waveCounter] <= this.enemiesKilled) {
@@ -159,7 +158,7 @@ class Game {
 
   resetWave() {
     this.enemies = [];
-    this.projectiles = [];
+    this.player.weapon.projectiles = [];
     // Should we reset the players position?
 
     this.waveCounter++;
@@ -240,9 +239,31 @@ class Game {
     // const target = new Point2d(offsetX, offsetY);
     const projectile = this.player.weapon.shoot(event, this.player.position);
     if (projectile) {
-      this.projectiles.push(projectile);
+      this.player.weapon.projectiles.push(projectile);
     }
   }
+  handleMouseUp(event) {
+    console.log("up");
+    this.player.weapon.releaseTrigger()
+    // const target = new Point2d(offsetX, offsetY);
+    // const projectile = this.player.weapon.shoot(event, this.player.position);
+    // if (projectile) {
+    //   this.player.weapon.projectiles.push(projectile);
+    // }
+  }
+
+  handleMouseDown(event) {
+    console.log("down");
+    this.player.weapon.pullTrigger(event, this.player.position)
+
+    // // const target = new Point2d(offsetX, offsetY);
+    // const projectile = this.player.weapon.shoot(event, this.player.position);
+    // if (projectile) {
+    //   this.player.weapon.projectiles.push(projectile);
+    // }
+  }
+
+
 }
 
 export {
