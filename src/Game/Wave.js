@@ -1,4 +1,4 @@
-import { Enemy } from "../Entities/Enemy";
+import { bigZombie, Enemy, fastZombie, zombie } from "../Entities/Enemy";
 
 
 export class Wave {
@@ -37,10 +37,18 @@ export class WaveSet {
       } else {
         x = Math.random() * viewport.width;
         y = Math.random() < 0.5 ? 0 - radius : viewport.height + radius;
-
       }
 
-      const enemy = new Enemy(x, y);
+      const chance = Math.random();
+      console.log(chance);
+      let enemy;
+      if (chance < 0.15) {
+        enemy = bigZombie(x, y);
+      } else if (chance < 0.35) {
+        enemy = fastZombie(x, y);
+      } else {
+        enemy = zombie(x, y);
+      }
       enemyList.push(enemy);
 
       // Disable enemy spawning for 1 second
