@@ -10,7 +10,7 @@ export const playerMaxHP = 100;
 export class Player extends Entity {
     constructor(x, y) {
         super(new Point2d(x, y), 10, colors.player, 2, 0, playerMaxHP);
-        this.weapon = shotgun;
+        this.weapon = pistol;
         this.weapon.playerPos = this.position;
         this.invincible = false;
     }

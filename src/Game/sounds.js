@@ -5,7 +5,7 @@ import { Howl, Howler } from 'howler';
 export const pistolShotHowl = new Howl({
     src: ['assets/sounds/pistol-shoot.mp3'],
 
-    volume: 0.01
+    volume: 0.1
 
 })
 
