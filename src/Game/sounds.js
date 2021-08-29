@@ -18,19 +18,18 @@ export const shotGunShotHowl = new Howl({
 
 export const winHowl = new Howl({
     src: ['assets/sounds/win.mp3'],
-    volume: 0.1
+    volume: 0.4
 
 })
 
 export const loseHowl = new Howl({
     src: ['assets/sounds/lose.mp3'],
-    volume: 0.1
+    volume: 0.4
 
 })
 
 export const backgroundMusic = new Howl({
     src: ['assets/sounds/background.mp3'],
-    autoplay: true,
     loop: true,
     volume: 0.05,
 })

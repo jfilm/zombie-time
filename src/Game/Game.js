@@ -4,7 +4,8 @@ import { Point2d } from "../Entities/Point2d";
 import { Projectile } from "../Entities/Projectile";
 import { gameState } from "./GameManager";
 import { Wave, WaveSet } from "./Wave";
-import { winHowl, loseHowl } from '../Game/sounds.js'
+import { winHowl, loseHowl, backgroundMusic } from '../Game/sounds.js'
+
 
 // Arbitrary values, feel free to change
 const waves = [20, 30, 35, 50, 80];
@@ -29,6 +30,9 @@ class Game {
       right: false,
       left: false,
     }
+
+    //Start playing background music when the new game is created
+    backgroundMusic.play()
   }
 
   /// Draw all entities and GUI on the provided context
@@ -182,10 +186,21 @@ class Game {
     }
 
     if (this.player.hp <= 0) {
-      loseHowl.play()
+
+      //Clear interval for automatic shooting after player die.
+      this.player.weapon.releaseTrigger();
+
+      backgroundMusic.stop()
+      loseHowl.play();
       return gameState.LOSE;
     } else if (this.waves.finished) {
-      winHowl.play()
+      //Clear interval for automatic shooting after player die.
+      this.player.weapon.releaseTrigger();
+      backgroundMusic.stop()
+
+      winHowl.play();
+
+
       return gameState.WIN;
     }
 
