@@ -33,7 +33,7 @@ class Game {
 
     //Start playing background music when the new game is created. 
     //Feel free to disable it by commenting
-    backgroundMusic.play()
+    // backgroundMusic.play()
   }
 
   /// Draw all entities and GUI on the provided context

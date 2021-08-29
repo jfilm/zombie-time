@@ -9,6 +9,8 @@
     <title>Zombie Time</title>
 
 
+
+
 </head>
 
 <body>
@@ -19,7 +21,7 @@
     </header>
     <div id="canvas-container">
         <!--Canvas goes here -->
-        <canvas id="viewport" width="1280px" height="629px"></canvas>
+        <!-- <canvas id="viewport" width="1280px" height="629px"></canvas> -->
         <!-- <canvas id="viewport" width="450px" height="300px"></canvas> -->
 
         <div class="gameDashboard">
@@ -54,8 +56,32 @@
 
     </div>
     <div>
+
         <!-- Controls and game instructions -->
     </div>
+
+    <script>
+        // 1260 880 560
+        switch (true) {
+            case window.innerWidth >= 1260:
+                document.querySelector('.gameDashboard').style.width = '1280px'
+                document.querySelector('.gameDashboard').style.height = '629px'
+                document.getElementById('canvas-container').innerHTML = '<canvas id="viewport" width="1280px" height="629px"></canvas>' + document.getElementById('canvas-container').innerHTML;
+                break;
+            case window.innerWidth >= 880:
+                document.querySelector('.gameDashboard').style.width = "780px";
+                document.querySelector('.gameDashboard').style.height = "429px";
+                document.getElementById('canvas-container').innerHTML = '<canvas id="viewport" width="780px" height="429px"></canvas>' + document.getElementById('canvas-container').innerHTML;
+                break;
+            case window.innerWidth >= 560:
+                document.querySelector('.gameDashboard').style.width = "480px";
+                document.querySelector('.gameDashboard').style.height = "310px";
+                document.getElementById('canvas-container').innerHTML = '<canvas id="viewport" width="480px" height="310px"></canvas>' + document.getElementById('canvas-container').innerHTML;
+                break;
+            default:
+                break;
+        }
+    </script>
 </body>
 
 </html>
