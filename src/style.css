@@ -28,7 +28,6 @@ canvas {
 }
 
 #canvas-container {
-  width: 100%;
   /* height: 400px; */
   position: relative;
   display: flex;
@@ -37,56 +36,3 @@ canvas {
   flex-direction: column;
 }
 
-<<<<<<< HEAD
-.pauseButton {
-  width: 100px;
-  background-color: #00adb5;
-  color: white;
-  padding: 9px 20px;
-  border-radius: 50px;
-  transition: all 0.3s ease 0s;
-  border: none;
-}
-
-.pauseButton:hover {
-  background-color: #047e85;
-  cursor: pointer;
-}
-
-.messageContainer {
-  position: absolute;
-
-  /* Center a message */
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
-
-  height: 100px;
-  width: 200px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border: 2px solid;
-  border-radius: 10px;
-  visibility: hidden;
-}
-.lose {
-  color: rgb(255, 0, 0);
-  background-color: rgba(73, 0, 0, 0.864);
-  border-color: #ff0000;
-}
-
-.win {
-  color: rgb(63, 252, 0);
-  background-color: rgba(49, 112, 75, 0.823);
-  border-color: #0dff00;
-}
-
-.pause {
-  color: rgb(73, 73, 73);
-  background-color: rgba(255, 255, 255, 0.823);
-  border-color: #949494;
-}
-=======
->>>>>>> 20c0921bea6843ebcf523a52b442e5626bf29cf7
