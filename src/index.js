@@ -9,7 +9,7 @@ const ctx = viewport.getContext("2d");
 const viewportWidth = viewport.width;
 const viewportHeight = viewport.height;
 
-const viewportScale = window.devicePixelRatio || 1;
+const viewportScale = 1;
 
 viewport.width = viewportWidth * viewportScale;
 viewport.height = viewportHeight * viewportScale;
