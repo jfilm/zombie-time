@@ -2,10 +2,14 @@ import { Howl, Howler } from 'howler';
 
 
 
+let isMute = false;
+
+
+
 export const pistolShotHowl = new Howl({
     src: ['assets/sounds/pistol-shoot.mp3'],
 
-    volume: 0.01
+    volume: 0.1
 
 })
 
@@ -33,3 +37,46 @@ export const backgroundMusic = new Howl({
     loop: true,
     volume: 0.05,
 })
+
+const sounds = [pistolShotHowl,
+    shotGunShotHowl,
+    winHowl,
+    loseHowl,
+    backgroundMusic]
+
+function muteAll(soundsArray, muteState) {
+
+    soundsArray.forEach(sound => {
+        sound.mute(muteState)
+    })
+
+}
+
+
+const soundButton = document.querySelector('.soundButton');
+
+soundButton.addEventListener('click', () => {
+
+    if (isMute) {
+
+        muteAll(sounds, !isMute);
+        soundButton.innerHTML = '<i class="fas fa-volume-up"></i>';
+
+
+        isMute = !isMute
+    } else {
+        muteAll(sounds, !isMute);
+        soundButton.innerHTML = '<i class="fas fa-volume-mute"></i>';
+
+        isMute = !isMute
+
+    }
+
+
+})
+
+
+
+
+
+

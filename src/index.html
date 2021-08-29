@@ -7,35 +7,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/fa558b3648.js" crossorigin="anonymous"></script>
     <title>Zombie Time</title>
+
+
 </head>
 
 <body>
 
     <header>
         <!-- Probably just the Title-->
-        <h1 class="title">Zombie Time</h1>
+        <!-- <h1>Zombie Time</h1> -->
     </header>
     <div id="canvas-container">
         <!--Canvas goes here -->
-        <canvas id="viewport" width="600px" height="400px"></canvas>
+        <canvas id="viewport" width="1280px" height="629px"></canvas>
         <!-- <canvas id="viewport" width="450px" height="300px"></canvas> -->
 
-        <!--Game messages-->
-        <div class="lose messageContainer">
-            <h3>You lose</h3>
-            <p>Final Score: <span class="score"></span></p>
-            <button class="restartButton">Restart</button>
-        </div>
-        <div class="win messageContainer">
-            <h3>You won</h3>
-            <p>Final Score: <span class="score"></span></p>
-            <button class="restartButton">Restart</button>
-        </div>
-        <div class="pause messageContainer">
-            <h3>Paused</h3>
+        <div class="gameDashboard">
+            <!--Game messages-->
+            <div class="lose messageContainer">
+                <h3>You lose</h3>
+                <p>Final Score: <span class="score"></span></p>
+                <button class="restartButton"><i class="fas fa-redo"></i></button>
+            </div>
+            <div class="win messageContainer">
+                <h3>You won</h3>
+                <p>Final Score: <span class="score"></span></p>
+                <button class="restartButton">Restart</button>
+            </div>
+            <div class="pause messageContainer">
+                <h3>Paused</h3>
+            </div>
+
+
+            <div class="buttons">
+                <button class="soundButton"> <i class="fas fa-volume-up"></i>
+                </button>
+                <button class="pauseButton"><i class="fas fa-pause"></i></button>
+            </div>
+
+
         </div>
 
-        <button class="pauseButton">Pause</button>
 
         <img src="./assets/images/player/front-right.png" id="player" alt="" hidden>
         <img src="./assets/images/zombie/zombie.png" id="zombie" alt="" hidden>

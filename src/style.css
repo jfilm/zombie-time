@@ -37,6 +37,7 @@ canvas {
   flex-direction: column;
 }
 
+<<<<<<< HEAD
 .pauseButton {
   width: 100px;
   background-color: #00adb5;
@@ -87,3 +88,5 @@ canvas {
   background-color: rgba(255, 255, 255, 0.823);
   border-color: #949494;
 }
+=======
+>>>>>>> 20c0921bea6843ebcf523a52b442e5626bf29cf7

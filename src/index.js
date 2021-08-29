@@ -1,6 +1,11 @@
 import './style.css';
+import './styles/dashboard.scss'
 import { GameManager, gameState } from './Game/GameManager';
 
+import '@fortawesome/fontawesome-free/js/fontawesome'
+import '@fortawesome/fontawesome-free/js/solid'
+import '@fortawesome/fontawesome-free/js/regular'
+import '@fortawesome/fontawesome-free/js/brands'
 
 // const dpr = window.devicePixelRatio;
 const viewport = document.getElementById("viewport");
@@ -68,10 +73,13 @@ function init() {
   document.addEventListener('keyup', (event) => game.keyUp(event));
 
   //Handle pause button
-  document.querySelector(".pauseButton").addEventListener('click', () => {
+  const pauseButton = document.querySelector(".pauseButton");
+  pauseButton.addEventListener('click', () => {
     if (game.state === gameState.RUNNING) {
+      pauseButton.innerHTML = '<i class="fas fa-play"></i>'
       game.state = gameState.PAUSED;
     } else if (game.state === gameState.PAUSED) {
+      pauseButton.innerHTML = '<i class="fas fa-pause"></i>'
       game.state = gameState.RUNNING;
     }
   })

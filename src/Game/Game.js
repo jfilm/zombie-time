@@ -31,7 +31,8 @@ class Game {
       left: false,
     }
 
-    //Start playing background music when the new game is created
+    //Start playing background music when the new game is created. 
+    //Feel free to disable it by commenting
     backgroundMusic.play()
   }
 
