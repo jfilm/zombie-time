@@ -10,6 +10,7 @@
     height        : 629px;
     position      : absolute;
     pointer-events: none;
+    border-radius : 10px;
 
     &>* {
         pointer-events: auto;
