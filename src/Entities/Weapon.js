@@ -47,12 +47,12 @@ export class Weapon {
         }
 
         //Make automatic shooting possible
-        this.interval = setInterval(() => {
-            for (let i = 0; i < this.bulletsInOneShoot; i++) {
-                this.shoot(coordinates, this.playerPos, projectilesArray)
-            }
+        // this.interval = setInterval(() => {
+        //     for (let i = 0; i < this.bulletsInOneShoot; i++) {
+        //         this.shoot(coordinates, this.playerPos, projectilesArray)
+        //     }
 
-        }, 1000 / this.rateOfFire)
+        // }, 1000 / this.rateOfFire)
 
         this.canShoot = false;
     }
