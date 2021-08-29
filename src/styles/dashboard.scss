@@ -1,0 +1,100 @@
+@import 'variables';
+
+
+
+
+.gameDashboard {
+
+    border        : 2px solid $main_color;
+    width         : 1280px;
+    height        : 629px;
+    position      : absolute;
+    pointer-events: none;
+
+    &>* {
+        pointer-events: auto;
+    }
+
+    button {
+        display         : flex;
+        justify-content : center;
+        align-items     : center;
+        box-sizing      : border-box;
+        appearance      : none;
+        background-color: transparent;
+        border          : 2px solid $main_color;
+        border-radius   : 20px;
+        color           : $main_color;
+        cursor          : pointer;
+        display         : flex;
+        align-self      : center;
+        text-decoration : none;
+        text-align      : center;
+        font-weight     : 700;
+        margin          : 10px;
+        width           : 40px;
+        height          : 40px;
+
+        &:hover,
+        &:focus {
+            color  : #fff;
+            outline: 0;
+        }
+
+        transition: box-shadow 300ms ease-in-out,
+        color 300ms ease-in-out;
+
+        &:hover {
+            box-shadow: 0 0 40px 40px $main_color inset;
+        }
+    }
+
+
+
+    .messageContainer {
+        position: absolute;
+
+        /* Center a message */
+        top      : 50%;
+        left     : 50%;
+        transform: translateX(-50%) translateY(-50%);
+
+        width          : 30%;
+        display        : flex;
+        flex-direction : column;
+        justify-content: center;
+        align-items    : center;
+        border         : 2px solid;
+        border-radius  : 10px;
+        visibility     : hidden;
+    }
+
+    .lose {
+        color           : rgb(255, 0, 0);
+        background-color: rgba(73, 0, 0, 0.7);
+        border-color    : #ff0000;
+    }
+
+    .win {
+        color           : rgb(63, 252, 0);
+        background-color: rgba(49, 112, 75, 0.823);
+        border-color    : #0dff00;
+    }
+
+    .pause {
+        color           : rgb(73, 73, 73);
+        background-color: rgba(255, 255, 255, 0.823);
+        border-color    : #949494;
+    }
+
+    .buttons {
+        position      : absolute;
+        bottom        : 15px;
+        left          : 15px;
+        display       : flex;
+        flex-direction: column;
+
+
+    }
+
+}
