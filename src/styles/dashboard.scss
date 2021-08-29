@@ -21,10 +21,9 @@
 
 
     border        : 2px solid $main_color;
-    width         : 1280px;
-    height        : 629px;
     position      : absolute;
     pointer-events: none;
+    border-radius : 10px;
 
     &>* {
         pointer-events: auto;
@@ -116,17 +115,15 @@
 
     }
 
-
     .gunSlot {
         position: absolute;
         bottom  : 10px;
         right   : 150px;
         border  : 2px solid $main_color;
-        padding : 10px;
-
-        * {
-            -webkit-user-drag: none;
-        }
+        padding : 5px;
     }
+
+
+
 
 }

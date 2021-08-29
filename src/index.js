@@ -1,6 +1,8 @@
 import './style.css';
 import './styles/dashboard.scss'
 import { GameManager, gameState } from './Game/GameManager';
+import { gunMapping } from './utils/imagesMapping';
+
 
 import '@fortawesome/fontawesome-free/js/fontawesome'
 import '@fortawesome/fontawesome-free/js/solid'
@@ -14,7 +16,7 @@ const ctx = viewport.getContext("2d");
 const viewportWidth = viewport.width;
 const viewportHeight = viewport.height;
 
-const viewportScale = window.devicePixelRatio || 1;
+const viewportScale = 1;
 
 viewport.width = viewportWidth * viewportScale;
 viewport.height = viewportHeight * viewportScale;
@@ -27,18 +29,32 @@ ctx.scale(viewportScale, viewportScale);
 
 
 // Get DOM elements (messageContainers)
-const [winContainer, loseContainer, pauseContainer] = [
+const [winContainer, loseContainer, pauseContainer, gunSlot] = [
   document.querySelector(".win"),
   document.querySelector(".lose"),
-  document.querySelector(".pause")
+  document.querySelector(".pause"),
+  document.querySelector('.gunSlot>img')
 ]
 
 
-// Canvas refresher (please rewrite this comment, I don't know how to call this function 😅)
+// Setting weapon image based on the weapon name
+function setWeaponImage(containerElement, weaponName) {
+  gunMapping.forEach(gun => {
+    if (weaponName === gun.name) {
+      containerElement.src = gun.src;
+    }
+  })
+}
+
+
 function drawFrame(game) {
   game.draw();
+
+
   switch (game.state) {
     case "running":
+      
+      setWeaponImage(gunSlot, game.game.player.weapon.name)
       pauseContainer.style.visibility = "hidden"
       loseContainer.style.visibility = "hidden"
       winContainer.style.visibility = "hidden"
