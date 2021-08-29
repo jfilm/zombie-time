@@ -43,11 +43,11 @@ export class Wave {
 }
 
 const defaultWaves = [
-  new Wave(10, 5),
-  new Wave(20, 10),
-  new Wave(30, 20, strongerTable),
-  new Wave(50, 20, strongerTable),
-  new Wave(50, 35, strongestTable),
+  new Wave(1, 5),
+  new Wave(1, 10),
+  new Wave(1, 20, strongerTable),
+  new Wave(1, 20, strongerTable),
+  new Wave(1, 35, strongestTable),
 ];
 
 export class WaveSet {

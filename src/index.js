@@ -1,6 +1,7 @@
 import './style.css';
 import { GameManager, gameState } from './Game/GameManager';
 
+
 // const dpr = window.devicePixelRatio;
 const viewport = document.getElementById("viewport");
 const ctx = viewport.getContext("2d");
