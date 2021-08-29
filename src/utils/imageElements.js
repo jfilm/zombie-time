@@ -1,0 +1,5 @@
+export const playerImg = document.getElementById("player") 
+export const zombieImg = document.getElementById("zombie") 
+export const shotgunImg = document.getElementById("shotgun") 
+export const medicalKitImg = document.getElementById("medicalKit") 
+export const pistolImg = document.getElementById("pistol") 

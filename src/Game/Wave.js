@@ -1,5 +1,5 @@
 import { bigZombie, Enemy, fastZombie, zombie } from "../Entities/Enemy";
-import { healthPickup } from "../Entities/Pickups";
+import { healthPickup, shotgunPickup, pistolPickup } from "../Entities/Pickups";
 import { Point2d } from "../Entities/Point2d";
 import { randomInt } from "../utils";
 import { RandomTable } from "./RandomTable";
@@ -7,6 +7,9 @@ import { RandomTable } from "./RandomTable";
 // Feel free to rebalance these tables
 const defaultTable = new RandomTable()
   .addItem(10, { enemy: zombie })
+  .addItem(10, { pickup: shotgunPickup })
+  .addItem(10, { pickup: pistolPickup })
+  .addItem(10, { pickup: healthPickup })
   .addItem(5, { enemy: fastZombie });
 
 const strongerTable = new RandomTable()
@@ -17,7 +20,7 @@ const strongerTable = new RandomTable()
 
 const strongestTable = new RandomTable()
   .addItem(2, { pickup: healthPickup })
-  .addItem(15, { enemy: zombie})
+  .addItem(15, { enemy: zombie })
   .addItem(15, { enemy: fastZombie })
   .addItem(10, { enemy: bigZombie });
 
@@ -66,18 +69,18 @@ export class WaveSet {
     const maxPickups = this.currentWave.maxPickups;
     if (this.canSpawn) {
       const spawnedItem = this.currentWave.getSpawn();
-      if (spawnedItem.pickup &&  maxPickups > pickupList.length) {
+      if (spawnedItem.pickup && maxPickups > pickupList.length) {
         const x = randomInt(viewport.width - 20);
         const y = randomInt(viewport.height - 20);
         const position = new Point2d(x, y);
         const pickup = spawnedItem.pickup(position);
         pickupList.push(pickup);
       } else if (spawnedItem.enemy && maxEnemies > enemyList.length) {
-        
+
         const radius = 20;
         let x;
         let y;
-        
+
         // Assign a random coordinate that are on the boarder of the viewport
         if (Math.random() < 0.5) {
           x = Math.random() < 0.5 ? 0 - radius : viewport.width + radius;
@@ -88,17 +91,17 @@ export class WaveSet {
         }
 
         const position = new Point2d(x, y);
-        
+
         const enemy = spawnedItem.enemy(position);
         if (enemy) {
           enemyList.push(enemy);
         }
-        
+
       }
 
       // Disable enemy spawning for 1 second
       this.canSpawn = false;
-      setTimeout((function() {
+      setTimeout((function () {
         this.canSpawn = true;
       }).bind(this), 1000);
     }
@@ -118,10 +121,10 @@ export class WaveSet {
 
   nextWave() {
     this.waveCounter++;
-    
+
     // Set spawning off for 8 seconds
     this.canSpawn = false;
-    setTimeout((function() {
+    setTimeout((function () {
       this.canSpawn = true;
     }).bind(this), 8000);
   }

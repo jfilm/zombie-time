@@ -11,3 +11,6 @@ export const shotgun = {
 }
 
 export const gunMapping = [pistol, shotgun]
+
+
+

@@ -83,7 +83,7 @@ function init() {
 
   viewport.addEventListener('click', (event) => game.mouseClick(event));
   viewport.addEventListener('mousedown', (event) => game.mouseDown(event));
-  viewport.addEventListener('mouseup', (event) => game.mouseUp(event));
+  document.addEventListener('mouseup', (event) => game.mouseUp(event));
   viewport.addEventListener('mousemove', (event) => game.mouseMove(event))
   document.addEventListener('keydown', (event) => game.keyDown(event));
   document.addEventListener('keyup', (event) => game.keyUp(event));

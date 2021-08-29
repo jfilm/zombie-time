@@ -1,7 +1,7 @@
 import { Point2d } from "./Point2d";
 
 export class Entity {
-  constructor(position, radius, color, speed = 1, attack = 10, health = 10) {
+  constructor(position, radius, color, speed = 1, attack = 10, health = 10, img) {
     this.position = position;
     this.radius = radius;
     this.color = color;
@@ -10,6 +10,7 @@ export class Entity {
     this.attack = attack;
     this.hp = health;
     this.invincible = false;
+    this.img = img;
   }
 
   get x() {
@@ -28,16 +29,22 @@ export class Entity {
     this.position.y = y;
   }
 
+  //If this.img is defined then it will draw and image otherwise it will be filled with this.color 
   draw(ctx) {
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-    ctx.fillStyle = this.color;
-    ctx.fill();
+    if (this.img) {
+      ctx.drawImage(this.img, this.x - this.radius, this.y - this.radius, this.radius * 2, this.radius * 2);
+    } else {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+      ctx.fillStyle = this.color;
+      ctx.fill();
+    }
+
   }
 
   update() {
-    this.x  = this.x + this.velocity.x;
-    this.y  = this.y + this.velocity.y;
+    this.x = this.x + this.velocity.x;
+    this.y = this.y + this.velocity.y;
   }
 
   /// Returns true if the entities are colliding, else false

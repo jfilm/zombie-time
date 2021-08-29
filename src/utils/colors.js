@@ -10,5 +10,5 @@ export default Colors = {
   zombie,
   fastZombie,
   bigZombie,
-  healthPickup
+  healthPickup,
 }
