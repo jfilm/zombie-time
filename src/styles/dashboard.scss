@@ -5,6 +5,21 @@
 
 .gameDashboard {
 
+    /* Disabled selection*/
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select  : none;
+    /* Safari */
+    -khtml-user-select   : none;
+    /* Konqueror HTML */
+    -moz-user-select     : none;
+    /* Old versions of Firefox */
+    -ms-user-select      : none;
+    /* Internet Explorer/Edge */
+    user-select          : none;
+    /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+
+
     border        : 2px solid $main_color;
     width         : 1280px;
     height        : 629px;
@@ -13,6 +28,7 @@
 
     &>* {
         pointer-events: auto;
+
     }
 
     button {
@@ -35,10 +51,13 @@
         width           : 40px;
         height          : 40px;
 
-        &:hover,
+
         &:focus {
-            color  : #fff;
             outline: 0;
+        }
+
+        &:hover {
+            color: #fff;
         }
 
         transition: box-shadow 300ms ease-in-out,
@@ -95,6 +114,19 @@
         flex-direction: column;
 
 
+    }
+
+
+    .gunSlot {
+        position: absolute;
+        bottom  : 10px;
+        right   : 150px;
+        border  : 2px solid $main_color;
+        padding : 10px;
+
+        * {
+            -webkit-user-drag: none;
+        }
     }
 
 }
