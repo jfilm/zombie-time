@@ -19,37 +19,38 @@ viewport.style.height = viewportHeight + 'px';
 ctx.scale(viewportScale, viewportScale);
 
 
+
 // Get DOM elements (messageContainers)
 const [winContainer, loseContainer, pauseContainer] = [
-    document.querySelector(".win"),
-    document.querySelector(".lose"),
-    document.querySelector(".pause")
+  document.querySelector(".win"),
+  document.querySelector(".lose"),
+  document.querySelector(".pause")
 ]
 
 
 // Canvas refresher (please rewrite this comment, I don't know how to call this function 😅)
 function drawFrame(game) {
-    game.draw();
-    switch (game.state) {
-        case "running":
-            pauseContainer.style.visibility = "hidden"
-            loseContainer.style.visibility = "hidden"
-            winContainer.style.visibility = "hidden"
-            break;
-        case "paused":
-            pauseContainer.style.visibility = "visible"
-            break;
-        case "lose":
-            loseContainer.style.visibility = "visible"
-            break;
-        case "win":
-            winContainer.style.visibility = "visible"
-            break;
-        default:
-            break;
-    }
+  game.draw();
+  switch (game.state) {
+    case "running":
+      pauseContainer.style.visibility = "hidden"
+      loseContainer.style.visibility = "hidden"
+      winContainer.style.visibility = "hidden"
+      break;
+    case "paused":
+      pauseContainer.style.visibility = "visible"
+      break;
+    case "lose":
+      loseContainer.style.visibility = "visible"
+      break;
+    case "win":
+      winContainer.style.visibility = "visible"
+      break;
+    default:
+      break;
+  }
 
-    requestAnimationFrame(() => drawFrame(game));
+  requestAnimationFrame(() => drawFrame(game));
 }
 
 // drawFrame();
@@ -68,9 +69,9 @@ function init() {
   //Handle pause button
   document.querySelector(".pauseButton").addEventListener('click', () => {
     if (game.state === gameState.RUNNING) {
-        game.state = gameState.PAUSED;
+      game.state = gameState.PAUSED;
     } else if (game.state === gameState.PAUSED) {
-        game.state = gameState.RUNNING;
+      game.state = gameState.RUNNING;
     }
   })
 
@@ -82,9 +83,9 @@ function init() {
     });
   }
 
-  setInterval(() => { 
+  setInterval(() => {
     if (document.hasFocus()) {
-      game.update(); 
+      game.update();
     }
   }, 1 / 60);
   // console.log(game);

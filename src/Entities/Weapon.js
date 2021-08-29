@@ -1,9 +1,11 @@
 import { Point2d } from "./Point2d";
 import { Projectile } from "./Projectile";
 import { cursorCoordinates } from "../utils/cursorCoordinates";
+import { pistolShotHowl, shotGunShotHowl } from '../Game/sounds';
+
 
 export class Weapon {
-    constructor(bulletSize = 3, bulletSpeed = 3, bulletDamage = 5, bulletHealth = 1, accuracy = 0.9, bulletsInOneShoot = 1) {
+    constructor(bulletSize = 3, bulletSpeed = 3, bulletDamage = 5, bulletHealth = 1, accuracy = 0.9, bulletsInOneShoot = 1, shotSound) {
         this.bulletSize = bulletSize;
         this.bulletSpeed = bulletSpeed;
         this.bulletDamage = bulletDamage;
@@ -22,6 +24,8 @@ export class Weapon {
         this.canShoot = true;
 
         this.bulletsInOneShoot = bulletsInOneShoot;
+
+        this.shotSound = shotSound;
     }
 
     pullTrigger(projectilesArray) {
@@ -57,6 +61,9 @@ export class Weapon {
 
     shoot(cursorCoordinates, playerPos, projectilesArray) {
 
+        //Play shot sound
+        this.shotSound.play();
+
         //Calculate angle of projectile speed vector.
         const distance_x = cursorCoordinates.x - playerPos.x;
         const distance_y = cursorCoordinates.y - playerPos.y;
@@ -79,8 +86,8 @@ export class Weapon {
 }
 
 // Default weapon
-export const pistol = new Weapon();
+export const pistol = new Weapon(undefined, undefined, undefined, undefined, undefined, undefined, pistolShotHowl);
 
 // Shotgun deals more damage, but moves slower
 // shotgun bullets can also go through two normal zombies
-export const shotgun = new Weapon(2, 2, 15, 20, 0.9, 5);
+export const shotgun = new Weapon(2, 2, 15, 20, 0.9, 5, shotGunShotHowl);
