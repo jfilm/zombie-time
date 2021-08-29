@@ -4,6 +4,7 @@ import { Point2d } from "../Entities/Point2d";
 import { Projectile } from "../Entities/Projectile";
 import { gameState } from "./GameManager";
 import { Wave, WaveSet } from "./Wave";
+import { winHowl, loseHowl } from '../Game/sounds.js'
 
 // Arbitrary values, feel free to change
 const waves = [20, 30, 35, 50, 80];
@@ -173,7 +174,7 @@ class Game {
     // Remove dead picksup
     this.pickups = this.pickups.filter(pickup => pickup.hp > 0);
 
-    // this.waves.spawnEnemies(this.enemies, this.pickups);
+    this.waves.spawnEnemies(this.enemies, this.pickups);
 
     // Check if wave is cleared
     if (this.waves.enemiesToKill <= this.enemiesKilled) {
@@ -181,8 +182,10 @@ class Game {
     }
 
     if (this.player.hp <= 0) {
+      loseHowl.play()
       return gameState.LOSE;
     } else if (this.waves.finished) {
+      winHowl.play()
       return gameState.WIN;
     }
 
