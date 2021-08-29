@@ -29,7 +29,6 @@ canvas {
 }
 
 #canvas-container {
-  width: 100%;
   /* height: 400px; */
   position: relative;
   display: flex;
@@ -37,5 +36,4 @@ canvas {
   align-items: center;
   flex-direction: column;
 }
-
 

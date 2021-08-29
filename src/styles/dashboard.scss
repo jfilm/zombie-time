@@ -8,6 +8,7 @@
     border        : 2px solid $main_color;
     position      : absolute;
     pointer-events: none;
+    border-radius : 10px;
 
     &>* {
         pointer-events: auto;
