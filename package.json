@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.4",
+    "extract-text-webpack-plugin": "^3.0.2",
     "howler": "^2.2.3"
   }
 }
