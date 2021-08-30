@@ -10,6 +10,7 @@ export class Weapon {
         this.bulletSpeed = bulletSpeed;
         this.bulletDamage = bulletDamage;
         this.bulletHealth = bulletHealth;
+        this.isAutomatic = isAutomatic;
 
         // <=0 means totally random spread, >=1 means 100% accuracy. 
         this.accuracy = accuracy;
@@ -48,21 +49,25 @@ export class Weapon {
 
 
         // Make automatic shooting possible
-        this.interval = setInterval(() => {
-            for (let i = 0; i < this.bulletsInOneShoot; i++) {
-                pushProjectile(this.shoot(coordinates, this.playerPos))
-            }
-
-        }, 1000 / this.rateOfFire)
+        if (this.isAutomatic) {
+            this.interval = setInterval(() => {
+                for (let i = 0; i < this.bulletsInOneShoot; i++) {
+                    pushProjectile(this.shoot(coordinates, this.playerPos))
+                }
+    
+            }, 1000 / this.rateOfFire);
+        }
 
         this.canShoot = false;
     }
 
     releaseTrigger() {
-        clearInterval(this.interval)
+        if (this.isAutomatic) {
+            clearInterval(this.interval);
+        }
     }
 
-    shoot(cursorCoordinates, playerPos, projectilesArray) {
+    shoot(cursorCoordinates, playerPos) {
 
         //Play shot sound
         this.shotSound.play();

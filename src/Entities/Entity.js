@@ -9,7 +9,6 @@ export class Entity {
     this.velocity = new Point2d;
     this.attack = attack;
     this.hp = health;
-    this.invincible = false;
     this.img = img;
   }
 
@@ -43,8 +42,7 @@ export class Entity {
   }
 
   update() {
-    this.x = this.x + this.velocity.x;
-    this.y = this.y + this.velocity.y;
+    this.position = this.position.add(this.velocity);
   }
 
   /// Returns true if the entities are colliding, else false

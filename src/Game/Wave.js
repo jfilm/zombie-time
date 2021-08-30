@@ -27,11 +27,11 @@ const strongestTable = new RandomTable()
   .addItem(15, { enemy: bigZombie });
 
 export class Wave {
-  constructor(enemiesToKill, maxEnemies, spawnTable = defaultTable) {
+  constructor(enemiesToKill, maxEnemies, maxPickups, spawnTable = defaultTable) {
     this.enemiesToKill = enemiesToKill;
     this.maxEnemies = maxEnemies;
+    this.maxPickups = maxPickups;
     this.spawnTable = spawnTable;
-    this.maxPickups = 3;
   }
 
   getSpawn() {
@@ -48,11 +48,11 @@ export class Wave {
 }
 
 const defaultWaves = [
-  new Wave(10, 5),
-  new Wave(20, 10),
-  new Wave(30, 20, strongerTable),
-  new Wave(50, 20, strongerTable),
-  new Wave(50, 35, strongestTable),
+  new Wave(10, 5, 5),
+  new Wave(20, 10, 6),
+  new Wave(30, 20, 7, strongerTable),
+  new Wave(50, 20, 7, strongerTable),
+  new Wave(50, 35, 9, strongestTable),
 ];
 
 export class WaveSet {
@@ -66,7 +66,7 @@ export class WaveSet {
     return this.waves[this.waveCounter];
   }
 
-  spawnEnemies(enemyList, pickupList) {
+  spawn(enemyList, pickupList) {
     const maxEnemies = this.currentWave.maxEnemies;
     const maxPickups = this.currentWave.maxPickups;
     if (this.canSpawn) {
