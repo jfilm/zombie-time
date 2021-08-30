@@ -9,7 +9,7 @@ import {
 } from '../utils/imageElements.js'
 
 class Pickup extends Entity {
-  constructor(position, radius, color, pickupFunction, img) {
+  constructor(position, radius, color, img, pickupFunction) {
     super(position, radius, color, 0, 0, 1, img);
     this.pickup = pickupFunction;
     this.img = img;
@@ -18,29 +18,29 @@ class Pickup extends Entity {
 
 
 export function healthPickup(position, healAmount = 5) {
-  return new Pickup(position, 13, colors.healthPickup, (player) => {
+  return new Pickup(position, 20, colors.healthPickup, medicalKitImg, (player) => {
     player.hp += healAmount;
     player.hp = Math.min(player.hp, playerMaxHP);
-  }, medicalKitImg);
+  });
 }
 
 
 export function shotgunPickup(position) {
-  return new Pickup(position, 13, 'red', (player) => {
+  return new Pickup(position, 20, 'red', shotgunImg, (player) => {
     //Release trigger on the weapon before pick up another one
     if (player.weapon.name !== "shotgun") {
       player.weapon.releaseTrigger();
       player.weapon = shotgun;
     }
-  }, shotgunImg);
+  });
 }
 
 export function pistolPickup(position) {
-  return new Pickup(position, 13, 'red', (player) => {
+  return new Pickup(position, 20, 'red', pistolImg, (player) => {
     //Release trigger on the weapon before pick up another one
     if (player.weapon.name !== "pistol") {
       player.weapon.releaseTrigger();
       player.weapon = pistol;
     }
-  }, pistolImg);
+  });
 }

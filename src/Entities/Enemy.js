@@ -1,23 +1,7 @@
 import colors from "../utils/colors";
 import { Entity } from "./Entity";
 import { Point2d } from "./Point2d";
-
-// Zombie images
-import ZombieSrc from "../assets/images/zombie/zoimbie1_hold.png";
-const zombieImg = new Image();
-zombieImg.src = ZombieSrc;
-zombieImg.width = 25;
-zombieImg.height = 25;
-
-import bigZombieSrc  from "../assets/images/zombie/zoimbie2_hold.png";
-const bigZombieImg = new Image();
-bigZombieImg.src = bigZombieSrc;
-
-import fastZombieSrc  from "../assets/images/zombie/zoimbie3_hold.png";
-const fastZombieImg = new Image();
-fastZombieImg.src = fastZombieSrc;
-fastZombieImg.width = 20;
-fastZombieImg.height = 20;
+import { zombieImg, bigZombieImg, fastZombieImg } from "../utils/imageElements";
 
 export class Enemy extends Entity {
     constructor(position, radius, color, speed, attack, health, points, img) {
@@ -48,13 +32,13 @@ export class Enemy extends Entity {
 }
 
 export function zombie(pos) {
-    return new Enemy(pos, 10, colors.zombie, 0.8, 5, 5, 10, zombieImg);
+    return new Enemy(pos, 20, colors.zombie, 0.8, 5, 5, 10, zombieImg);
 }
 
 export function bigZombie(pos) {
-    return new Enemy(pos, 15, colors.bigZombie, 0.8, 15, 15, 20, bigZombieImg);
+    return new Enemy(pos, 30, colors.bigZombie, 0.8, 15, 15, 20, bigZombieImg);
 }
 
 export function fastZombie(pos) {
-    return new Enemy(pos, 10, colors.fastZombie, 1, 1, 5, 5, fastZombieImg);
+    return new Enemy(pos, 15, colors.fastZombie, 1, 1, 5, 5, fastZombieImg);
 }
