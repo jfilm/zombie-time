@@ -21,7 +21,7 @@ class GameManager {
     this.game = new Game(viewport.width, viewport.height);
 
     // Game state may be: RUNNING, PAUSED, WIN, LOSE, START
-    this.state = gameState.RUNNING;
+    this.state = gameState.START;
   }
 
   get width() {

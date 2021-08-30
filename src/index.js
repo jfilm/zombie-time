@@ -29,7 +29,8 @@ ctx.scale(viewportScale, viewportScale);
 
 
 // Get DOM elements (messageContainers)
-const [winContainer, loseContainer, pauseContainer, gunSlot] = [
+const [startContainer, winContainer, loseContainer, pauseContainer, gunSlot] = [
+  document.querySelector(".start"),
   document.querySelector(".win"),
   document.querySelector(".lose"),
   document.querySelector(".pause"),
@@ -52,12 +53,19 @@ function drawFrame(game) {
 
 
   switch (game.state) {
+    case "start":
+      startContainer.style.visibility = "visible"
+      pauseContainer.style.visibility = "hidden"
+      loseContainer.style.visibility = "hidden"
+      winContainer.style.visibility = "hidden"
+      break;
     case "running":
-      
       setWeaponImage(gunSlot, game.game.player.weapon.name)
       pauseContainer.style.visibility = "hidden"
       loseContainer.style.visibility = "hidden"
       winContainer.style.visibility = "hidden"
+      startContainer.style.visibility = "hidden"
+
       break;
     case "paused":
       pauseContainer.style.visibility = "visible"
@@ -107,6 +115,12 @@ function init() {
       game.resetGame();
     });
   }
+
+    //Handle a start button
+    const startButton = document.querySelector(".startButton");
+    startButton.addEventListener('click', () => {
+      game.state = gameState.RUNNING;
+    })
 
   setInterval(() => {
     if (document.hasFocus()) {
