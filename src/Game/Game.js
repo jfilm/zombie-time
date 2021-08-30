@@ -4,7 +4,7 @@ import { Point2d } from "../Entities/Point2d";
 import { Projectile } from "../Entities/Projectile";
 import { gameState } from "./GameManager";
 import { Wave, WaveSet } from "./Wave";
-import { winHowl, loseHowl, backgroundMusic } from '../Game/sounds.js'
+import { winHowl, loseHowl, backgroundMusic, pickupHowl } from '../Game/sounds.js'
 
 
 // Arbitrary values, feel free to change
@@ -31,9 +31,18 @@ class Game {
       left: false,
     }
 
+    //Bind this to the pushProjectile method
+    this.pushProjectile = this.pushProjectile.bind(this)
+
     //Start playing background music when the new game is created. 
     //Feel free to disable it by commenting
     // backgroundMusic.play()
+  }
+
+
+  //This method we pass to the Weapon class to control projectiles storing
+  pushProjectile(projectile) {
+    this.projectiles.push(projectile);
   }
 
   /// Draw all entities and GUI on the provided context
@@ -152,6 +161,8 @@ class Game {
       if (pickup.collidesWith(this.player)) {
         pickup.pickup(this.player);
         pickup.takeDamage(10);
+        //pick up sound
+        pickupHowl.play()
       }
     })
 
@@ -295,7 +306,7 @@ class Game {
   }
 
   handleMouseDown(event) {
-    this.player.weapon.pullTrigger(this.projectiles)
+    this.player.weapon.pullTrigger(this.pushProjectile)
   }
 
 

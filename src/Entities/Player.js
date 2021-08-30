@@ -1,3 +1,4 @@
+import { hitHowl } from "../Game/sounds";
 import colors from "../utils/colors";
 import { Entity } from "./Entity";
 import { Point2d } from "./Point2d";
@@ -9,7 +10,7 @@ export const playerMaxHP = 100;
 
 export class Player extends Entity {
     constructor(x, y) {
-        super(new Point2d(x, y), 10, colors.player, 2, 0, playerMaxHP);
+        super(new Point2d(x, y), 10, colors.player, 1, 0, playerMaxHP);
         this.weapon = pistol;
         this.weapon.playerPos = this.position;
         this.invincible = false;
@@ -41,12 +42,15 @@ export class Player extends Entity {
             this.invincible = true;
             const originalColor = this.color;
             this.color = "red";
-
             // Turn off "invincibility frames"
             setTimeout(() => {
                 this.invincible = false;
                 this.color = originalColor;
             }, 400);
+
+            //hit sound
+            hitHowl.play();
+
         }
     }
 }

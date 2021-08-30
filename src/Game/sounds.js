@@ -38,11 +38,24 @@ export const backgroundMusic = new Howl({
     volume: 0.05,
 })
 
+export const hitHowl = new Howl({
+    src: ['assets/sounds/hit.wav'],
+    volume: 0.05,
+})
+
+export const pickupHowl = new Howl({
+    src: ['assets/sounds/pickup.wav'],
+    volume: 0.05,
+})
+
 const sounds = [pistolShotHowl,
     shotGunShotHowl,
     winHowl,
     loseHowl,
-    backgroundMusic]
+    backgroundMusic,
+    hitHowl]
+
+
 
 function muteAll(soundsArray, muteState) {
 

@@ -18,7 +18,7 @@ class Pickup extends Entity {
 
 
 export function healthPickup(position, healAmount = 5) {
-  return new Pickup(position, 8, colors.healthPickup, (player) => {
+  return new Pickup(position, 13, colors.healthPickup, (player) => {
     player.hp += healAmount;
     player.hp = Math.min(player.hp, playerMaxHP);
   }, medicalKitImg);
@@ -26,13 +26,13 @@ export function healthPickup(position, healAmount = 5) {
 
 
 export function shotgunPickup(position) {
-  return new Pickup(position, 8, 'red', (player) => {
+  return new Pickup(position, 13, 'red', (player) => {
     player.weapon = shotgun;
   }, shotgunImg);
 }
 
 export function pistolPickup(position) {
-  return new Pickup(position, 8, 'red', (player) => {
+  return new Pickup(position, 13, 'red', (player) => {
     player.weapon = pistol;
   }, pistolImg);
 }

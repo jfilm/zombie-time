@@ -30,14 +30,14 @@ export class Weapon {
         this.name = name;
     }
 
-    pullTrigger(projectilesArray) {
+    pullTrigger(pushProjectile) {
         const coordinates = cursorCoordinates();
 
         //Set limit on the rate of fire
         if (this.canShoot) {
 
             for (let i = 0; i < this.bulletsInOneShoot; i++) {
-                this.shoot(coordinates, this.playerPos, projectilesArray)
+                pushProjectile(this.shoot(coordinates, this.playerPos))
             }
 
             setTimeout(() => {
@@ -46,13 +46,14 @@ export class Weapon {
 
         }
 
-        //Make automatic shooting possible
-        // this.interval = setInterval(() => {
-        //     for (let i = 0; i < this.bulletsInOneShoot; i++) {
-        //         this.shoot(coordinates, this.playerPos, projectilesArray)
-        //     }
 
-        // }, 1000 / this.rateOfFire)
+        // Make automatic shooting possible
+        this.interval = setInterval(() => {
+            for (let i = 0; i < this.bulletsInOneShoot; i++) {
+                pushProjectile(this.shoot(coordinates, this.playerPos))
+            }
+
+        }, 1000 / this.rateOfFire)
 
         this.canShoot = false;
     }
@@ -79,9 +80,7 @@ export class Weapon {
 
         const direction = new Point2d(Math.cos(randomAngle), Math.sin(randomAngle));
 
-        const projectile = new Projectile(new Point2d(playerPos.x, playerPos.y), this.bulletSize, this.bulletSpeed, direction, this.bulletDamage, this.bulletHealth)
-
-        projectilesArray.push(projectile)
+        return new Projectile(new Point2d(playerPos.x, playerPos.y), this.bulletSize, this.bulletSpeed, direction, this.bulletDamage, this.bulletHealth);
 
     }
 
