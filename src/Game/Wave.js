@@ -4,6 +4,7 @@ import { Point2d } from "../Entities/Point2d";
 import { randomInt } from "../utils";
 import { RandomTable } from "./RandomTable";
 
+
 // Feel free to rebalance these tables
 const defaultTable = new RandomTable()
   .addItem(5, { pickup: healthPickup })
@@ -34,6 +35,9 @@ export class Wave {
     this.maxEnemies = maxEnemies;
     this.maxPickups = maxPickups;
     this.spawnTable = spawnTable;
+
+
+
   }
 
   getSpawn() {
@@ -124,7 +128,16 @@ export class WaveSet {
   }
 
   nextWave() {
+
     this.waveCounter++;
+    if (this.waveCounter < this.waves.length) {
+      document.dispatchEvent(new CustomEvent("notification", {
+        detail: {
+          waveNumber: this.waveCounter + 1
+        }
+      }))
+    }
+
 
     // Set spawning off for 8 seconds
     this.canSpawn = false;

@@ -17,6 +17,11 @@
     <header>
         <!-- Probably just the Title-->
         <h1>Zombie Time</h1>
+        <a href="./index.html">
+            <h3>
+                Go home
+            </h3>
+        </a>
     </header>
     <div id="canvas-container">
         <!--Canvas goes here -->
@@ -26,6 +31,12 @@
 
 
         <div class="gameDashboard">
+
+            <div class="waveMessageContainer popUp">
+                <h3 class="waveMessage"></h3>
+            </div>
+
+
             <!--Game messages-->
             <div class="start messageContainer">
                 <h3>Start the game</h3>
@@ -74,7 +85,7 @@
     <!-- Controls and game instructions -->
 
     <div class="gameInstructions">
-        <img src="./assets/images/game-instrucions/game-instrucions.svg" alt="">
+        <img src="./assets/images/game-instrucions/game-instrucions.svg" draggable="false" alt="">
     </div>
 
     <script>

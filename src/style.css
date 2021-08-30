@@ -29,8 +29,8 @@ canvas {
  
   margin: 50px auto;
   border-radius: 10px;
-  /* background: #8ceca7; */
-  background: bisque;
+  background: hsl(89, 43%, 70%);
+  /* background: bisque; */
   /* height: 100%; */
 }
 
