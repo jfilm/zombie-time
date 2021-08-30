@@ -6,23 +6,25 @@ import { RandomTable } from "./RandomTable";
 
 // Feel free to rebalance these tables
 const defaultTable = new RandomTable()
-  .addItem(10, { enemy: zombie })
-  .addItem(10, { pickup: shotgunPickup })
-  .addItem(10, { pickup: pistolPickup })
-  .addItem(10, { pickup: healthPickup })
-  .addItem(5, { enemy: fastZombie });
+  .addItem(5, { pickup: healthPickup })
+  .addItem(15, { enemy: zombie })
+  .addItem(10, { enemy: fastZombie });
 
 const strongerTable = new RandomTable()
-  .addItem(2, { pickup: healthPickup })
+  .addItem(10, { pickup: healthPickup })
+  .addItem(5, { pickup: shotgunPickup })
+  .addItem(5, { pickup: pistolPickup })
   .addItem(20, { enemy: zombie })
   .addItem(15, { enemy: fastZombie })
   .addItem(5, { enemy: bigZombie });
 
 const strongestTable = new RandomTable()
-  .addItem(2, { pickup: healthPickup })
-  .addItem(15, { enemy: zombie })
+  .addItem(10, { pickup: healthPickup })
+  .addItem(5, { pickup: shotgunPickup })
+  .addItem(5, { pickup: pistolPickup })
+  .addItem(25, { enemy: zombie })
   .addItem(15, { enemy: fastZombie })
-  .addItem(10, { enemy: bigZombie });
+  .addItem(15, { enemy: bigZombie });
 
 export class Wave {
   constructor(enemiesToKill, maxEnemies, spawnTable = defaultTable) {

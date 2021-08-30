@@ -35,9 +35,9 @@ export function zombie(pos) {
 }
 
 export function bigZombie(pos) {
-    return new Enemy(pos, 15, colors.bigZombie, 0.5, 15, 15, 20);
+    return new Enemy(pos, 15, colors.bigZombie, 0.8, 15, 15, 20);
 }
 
 export function fastZombie(pos) {
-    return new Enemy(pos, 10, colors.fastZombie, 1.2, 1, 5, 5);
+    return new Enemy(pos, 10, colors.fastZombie, 1, 1, 5, 5);
 }
