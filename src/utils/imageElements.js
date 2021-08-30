@@ -5,6 +5,7 @@ import fastZombieSrc  from "../assets/images/zombie/zoimbie3_hold.png";
 import shotgunSrc from "../assets/images/items/shotgun.png";
 import medicalKitSrc from "../assets/images/items/medical-kit.png";
 import pistolSrc from "../assets/images/items/pistol.png";
+import rifleSrc from "../assets/images/items/rifle.png";
 
 export const playerImg = new Image();
 playerImg.src = playerSrc;
@@ -26,3 +27,6 @@ medicalKitImg.src = medicalKitSrc;
 
 export const pistolImg = new Image();
 pistolImg.src = pistolSrc;
+
+export const rifleImg = new Image();
+rifleImg.src = rifleSrc;

@@ -1,5 +1,5 @@
 import { bigZombie, Enemy, fastZombie, zombie } from "../Entities/Enemy";
-import { healthPickup, shotgunPickup, pistolPickup } from "../Entities/Pickups";
+import { healthPickup, shotgunPickup, pistolPickup, riflePickup } from "../Entities/Pickups";
 import { Point2d } from "../Entities/Point2d";
 import { randomInt } from "../utils";
 import { RandomTable } from "./RandomTable";
@@ -12,6 +12,7 @@ const defaultTable = new RandomTable()
 
 const strongerTable = new RandomTable()
   .addItem(10, { pickup: healthPickup })
+  .addItem(5, { pickup: riflePickup })
   .addItem(5, { pickup: shotgunPickup })
   .addItem(5, { pickup: pistolPickup })
   .addItem(20, { enemy: zombie })
@@ -21,6 +22,7 @@ const strongerTable = new RandomTable()
 const strongestTable = new RandomTable()
   .addItem(10, { pickup: healthPickup })
   .addItem(5, { pickup: shotgunPickup })
+  .addItem(5, { pickup: riflePickup })
   .addItem(5, { pickup: pistolPickup })
   .addItem(25, { enemy: zombie })
   .addItem(15, { enemy: fastZombie })

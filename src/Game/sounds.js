@@ -16,7 +16,11 @@ export const pistolShotHowl = new Howl({
 export const shotGunShotHowl = new Howl({
     src: ['assets/sounds/shotgun-shoot.mp3'],
     volume: 0.01
+});
 
+export const rifleShotHowl = new Howl({
+    src: ['assets/sounds/pistol-shoot.mp3'],
+    volume: 0.01
 })
 
 

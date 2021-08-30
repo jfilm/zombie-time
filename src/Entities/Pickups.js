@@ -1,11 +1,12 @@
 import colors from "../utils/colors";
 import { Entity } from "./Entity";
 import { playerMaxHP } from "./Player";
-import { shotgun, pistol } from "./Weapon";
+import { shotgun, pistol, rifle } from "./Weapon";
 import {
   shotgunImg,
   medicalKitImg,
-  pistolImg
+  pistolImg,
+  rifleImg
 } from '../utils/imageElements.js'
 
 class Pickup extends Entity {
@@ -41,6 +42,16 @@ export function pistolPickup(position) {
     if (player.weapon.name !== "pistol") {
       player.weapon.releaseTrigger();
       player.weapon = pistol;
+    }
+  });
+}
+
+export function riflePickup(position) {
+  return new Pickup(position, 20, 'red', rifleImg, (player) => {
+    //Release trigger on the weapon before pick up another one
+    if (player.weapon.name !== "rifle") {
+      player.weapon.releaseTrigger();
+      player.weapon = rifle;
     }
   });
 }

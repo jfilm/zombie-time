@@ -1,16 +1,24 @@
-const itemsUrl = './assets/images/items/'
+import pistolSrc from "../assets/images/items/pistol.png";
+import shotgunSrc from "../assets/images/items/shotgun.png";
+import rifleSrc from "../assets/images/items/rifle.png";
+
 
 export const pistol = {
     name: 'pistol',
-    src: itemsUrl + 'pistol.png'
+    src: pistolSrc
 }
 
 export const shotgun = {
     name: 'shotgun',
-    src: itemsUrl + 'shotgun.png'
+    src: shotgunSrc
 }
 
-export const gunMapping = [pistol, shotgun]
+export const rifle = {
+    name: "rifle",
+    src: rifleSrc
+}
+
+export const gunMapping = [pistol, shotgun, rifle]
 
 
 

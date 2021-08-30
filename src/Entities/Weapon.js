@@ -1,11 +1,11 @@
 import { Point2d } from "./Point2d";
 import { Projectile } from "./Projectile";
 import { cursorCoordinates } from "../utils/cursorCoordinates";
-import { pistolShotHowl, shotGunShotHowl } from '../Game/sounds';
+import { pistolShotHowl, rifleShotHowl, shotGunShotHowl } from '../Game/sounds';
 
 
 export class Weapon {
-    constructor(shotSound, name, bulletSize = 3, bulletSpeed = 3, bulletDamage = 5, bulletHealth = 2, accuracy = 0.9, bulletsInOneShoot = 1, rateOfFire = 3, isAutomatic = true) {
+    constructor(shotSound, name, bulletSize = 3, bulletSpeed = 3, bulletDamage = 5, bulletHealth = 2, accuracy = 0.95, bulletsInOneShoot = 1, rateOfFire = 3, isAutomatic = true) {
         this.bulletSize = bulletSize;
         this.bulletSpeed = bulletSpeed;
         this.bulletDamage = bulletDamage;
@@ -96,4 +96,6 @@ export const pistol = new Weapon(pistolShotHowl, 'pistol');
 
 // Shotgun deals more damage, but moves slower
 // shotgun bullets can also go through two normal zombies
-export const shotgun = new Weapon(shotGunShotHowl, 'shotgun', 2, 2, 5, 20, 0.9, 5, 0.65, false);
+export const shotgun = new Weapon(shotGunShotHowl, 'shotgun', 2, 2, 5, 20, 0.8, 5, 0.65, false);
+
+export const rifle = new Weapon(rifleShotHowl, "rifle", 3, 5, 1, 1, 0.9, 1, 12, true);
