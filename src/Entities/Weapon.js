@@ -5,7 +5,7 @@ import { pistolShotHowl, shotGunShotHowl } from '../Game/sounds';
 
 
 export class Weapon {
-    constructor(bulletSize = 3, bulletSpeed = 3, bulletDamage = 5, bulletHealth = 1, accuracy = 0.9, bulletsInOneShoot = 1, shotSound, name) {
+    constructor(shotSound, name, bulletSize = 3, bulletSpeed = 3, bulletDamage = 5, bulletHealth = 2, accuracy = 0.9, bulletsInOneShoot = 1, rateOfFire = 3, isAutomatic = true) {
         this.bulletSize = bulletSize;
         this.bulletSpeed = bulletSpeed;
         this.bulletDamage = bulletDamage;
@@ -15,7 +15,7 @@ export class Weapon {
         this.accuracy = accuracy;
 
         //  bullets/second
-        this.rateOfFire = 3;
+        this.rateOfFire = rateOfFire;
 
         this.playerPos;
 
@@ -87,8 +87,8 @@ export class Weapon {
 }
 
 // Default weapon
-export const pistol = new Weapon(undefined, undefined, undefined, undefined, undefined, undefined, pistolShotHowl, 'pistol');
+export const pistol = new Weapon(pistolShotHowl, 'pistol');
 
 // Shotgun deals more damage, but moves slower
 // shotgun bullets can also go through two normal zombies
-export const shotgun = new Weapon(2, 2, 15, 20, 0.9, 5, shotGunShotHowl, 'shotgun');
+export const shotgun = new Weapon(shotGunShotHowl, 'shotgun', 2, 2, 5, 20, 0.9, 5, 0.65, false);
