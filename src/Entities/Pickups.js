@@ -27,12 +27,16 @@ export function healthPickup(position, healAmount = 5) {
 
 export function shotgunPickup(position) {
   return new Pickup(position, 13, 'red', (player) => {
+    //Release trigger on the weapon before pick up another one
+    player.weapon.releaseTrigger();
     player.weapon = shotgun;
   }, shotgunImg);
 }
 
 export function pistolPickup(position) {
   return new Pickup(position, 13, 'red', (player) => {
+    //Release trigger on the weapon before pick up another one
+    player.weapon.releaseTrigger();
     player.weapon = pistol;
   }, pistolImg);
 }
