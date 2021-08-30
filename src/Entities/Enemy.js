@@ -1,11 +1,27 @@
 import colors from "../utils/colors";
 import { Entity } from "./Entity";
 import { Point2d } from "./Point2d";
-const zombieImg = document.querySelector('#zombie');
+
+// Zombie images
+import ZombieSrc from "../assets/images/zombie/zoimbie1_hold.png";
+const zombieImg = new Image();
+zombieImg.src = ZombieSrc;
+zombieImg.width = 25;
+zombieImg.height = 25;
+
+import bigZombieSrc  from "../assets/images/zombie/zoimbie2_hold.png";
+const bigZombieImg = new Image();
+bigZombieImg.src = bigZombieSrc;
+
+import fastZombieSrc  from "../assets/images/zombie/zoimbie3_hold.png";
+const fastZombieImg = new Image();
+fastZombieImg.src = fastZombieSrc;
+fastZombieImg.width = 20;
+fastZombieImg.height = 20;
 
 export class Enemy extends Entity {
-    constructor(position, radius, color, speed, attack, health, points) {
-        super(position, radius, color, speed, attack, health);
+    constructor(position, radius, color, speed, attack, health, points, img) {
+        super(position, radius, color, speed, attack, health, img);
         this.points = points;
     }
 
@@ -13,6 +29,7 @@ export class Enemy extends Entity {
         //Calculate an angle of a projectile speed vector.
         const angle = Math.atan2(playerPos.y - this.y, playerPos.x - this.x);
         //Get speed by axis in form of an object {x, y}
+        this.direction = angle;
         const newVelocity = new Point2d(Math.cos(angle), Math.sin(angle)).scale(this.speed);
         this.velocity = newVelocity;
     }
@@ -31,13 +48,13 @@ export class Enemy extends Entity {
 }
 
 export function zombie(pos) {
-    return new Enemy(pos, 10, colors.zombie, 0.8, 5, 5, 10);
+    return new Enemy(pos, 10, colors.zombie, 0.8, 5, 5, 10, zombieImg);
 }
 
 export function bigZombie(pos) {
-    return new Enemy(pos, 15, colors.bigZombie, 0.8, 15, 15, 20);
+    return new Enemy(pos, 15, colors.bigZombie, 0.8, 15, 15, 20, bigZombieImg);
 }
 
 export function fastZombie(pos) {
-    return new Enemy(pos, 10, colors.fastZombie, 1, 1, 5, 5);
+    return new Enemy(pos, 10, colors.fastZombie, 1, 1, 5, 5, fastZombieImg);
 }

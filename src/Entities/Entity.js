@@ -10,6 +10,7 @@ export class Entity {
     this.attack = attack;
     this.hp = health;
     this.img = img;
+    this.direction = 0;
   }
 
   get x() {
@@ -31,7 +32,13 @@ export class Entity {
   //If this.img is defined then it will draw and image otherwise it will be filled with this.color 
   draw(ctx) {
     if (this.img) {
-      ctx.drawImage(this.img, this.x - this.radius, this.y - this.radius, this.radius * 2, this.radius * 2);
+      // const width = this.img.width;
+      // const height = this.img.height;
+      ctx.translate(this.x, this.y);
+      ctx.rotate(this.direction);
+      ctx.drawImage(this.img, -this.radius / 2, -this.radius / 2, this.radius, this.radius);
+      ctx.rotate(- this.direction);
+      ctx.translate(-this.x, -this.y);
     } else {
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
