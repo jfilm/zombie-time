@@ -1,7 +1,12 @@
 @import 'variables';
+@import url('https://fonts.googleapis.com/css2?family=Risque&display=swap');
 
-
-
+header {
+    font-family: 'Risque', cursive;
+    h1 {
+        color: #078701;
+    }
+}
 
 .gameDashboard {
 
@@ -134,4 +139,12 @@
 
 
 
+}
+
+.gameInstructions {
+    img {
+        padding: 0 30px;
+        width: 100%;
+    }
+    margin-bottom: 40px;
 }
