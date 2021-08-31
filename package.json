@@ -33,6 +33,12 @@
     "style-loader": "^2.0.0",
     "svg-url-loader": "^7.1.1",
     "url-loader": "^4.1.1",
-    "webpack-dev-server": "^3.11.2"
+    "webpack-dev-server": "^3.11.2",
+    "copy-webpack-plugin": "^9.0.1"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.4",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "howler": "^2.2.3"
   }
 }

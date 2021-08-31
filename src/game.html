@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zombie Time</title>
+
+
+
+
+</head>
+
+<body>
+
+    <header>
+        <!-- Probably just the Title-->
+        <h1>Zombie Time</h1>
+        <a href="./index.html">
+            <h3>
+                Go home
+            </h3>
+        </a>
+    </header>
+    <div id="canvas-container">
+        <!--Canvas goes here -->
+        <!-- <canvas id="viewport" width="1280px" height="629px"></canvas> -->
+        <!-- <canvas id="viewport" width="450px" height="300px"></canvas> -->
+
+
+
+        <div class="gameDashboard">
+
+            <div class="waveMessageContainer popUp">
+                <h3 class="waveMessage"></h3>
+            </div>
+
+
+            <!--Game messages-->
+            <div class="start messageContainer">
+                <h3>Start the game</h3>
+                <button class="startButton"><i class="fas fa-play"></i></button>
+            </div>
+            <div class="lose messageContainer">
+                <h3>You lose</h3>
+                <p>Final Score: <span class="score"></span></p>
+                <button class="restartButton"><i class="fas fa-redo"></i></button>
+            </div>
+            <div class="win messageContainer">
+                <h3>You won</h3>
+                <p>Final Score: <span class="score"></span></p>
+                <button class="restartButton"><i class="fas fa-redo"></i></button>
+            </div>
+            <div class="pause messageContainer">
+                <h3>Paused</h3>
+            </div>
+
+
+            <div class="buttons">
+                <button class="soundButton"> <i class="fas fa-volume-up"></i>
+                </button>
+                <button class="pauseButton"><i class="fas fa-pause"></i></button>
+            </div>
+
+            <div class="gunSlot">
+                <img src="./assets/images/items/pistol.png" alt="">
+            </div>
+
+
+        </div>
+
+
+        <img src="./assets/images/player/front-right.png" id="player" alt="" hidden>
+        <img src="./assets/images/zombie/zombie.png" id="zombie" alt="" hidden>
+        <img src="./assets/images/items/shotgun.png" id="shotgun" alt="" hidden>
+        <img src="./assets/images/items/medical-kit.png" id="medicalKit" alt="" hidden>
+        <img src="./assets/images/items/pistol.png" id="pistol" alt="" hidden>
+
+
+
+    </div>
+
+
+    <!-- Controls and game instructions -->
+
+    <div class="gameInstructions">
+        <img src="./assets/images/game-instrucions/game-instrucions.svg" draggable="false" alt="">
+    </div>
+
+    <script>
+        // 1260 880 560
+        switch (true) {
+            case window.innerWidth >= 1260:
+                document.querySelector('.gameDashboard').style.width = '1280px'
+                document.querySelector('.gameDashboard').style.height = '629px'
+                document.getElementById('canvas-container').innerHTML = '<canvas id="viewport" width="1280px" height="629px"></canvas>' + document.getElementById('canvas-container').innerHTML;
+                break;
+            case window.innerWidth >= 880:
+                document.querySelector('.gameDashboard').style.width = "780px";
+                document.querySelector('.gameDashboard').style.height = "429px";
+                document.getElementById('canvas-container').innerHTML = '<canvas id="viewport" width="780px" height="429px"></canvas>' + document.getElementById('canvas-container').innerHTML;
+                break;
+            case window.innerWidth >= 560:
+                document.querySelector('.gameDashboard').style.width = "480px";
+                document.querySelector('.gameDashboard').style.height = "310px";
+                document.getElementById('canvas-container').innerHTML = '<canvas id="viewport" width="480px" height="310px"></canvas>' + document.getElementById('canvas-container').innerHTML;
+                break;
+            default:
+                break;
+        }
+    </script>
+</body>
+
+</html>

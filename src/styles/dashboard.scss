@@ -1,0 +1,273 @@
+@import 'variables';
+@import url('https://fonts.googleapis.com/css2?family=Risque&display=swap');
+
+
+* {
+    /* Disabled selection*/
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select  : none;
+    /* Safari */
+    -khtml-user-select   : none;
+    /* Konqueror HTML */
+    -moz-user-select     : none;
+    /* Old versions of Firefox */
+    -ms-user-select      : none;
+    /* Internet Explorer/Edge */
+    user-select          : none;
+    /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+}
+
+header {
+    font-family: 'Risque', cursive;
+
+    h1 {
+        color    : $green;
+        font-size: 3.5em;
+        animation: flicker 7s infinite alternate;
+
+    }
+
+    a {
+        text-decoration: none;
+        color          : white;
+        position       : absolute;
+        left           : 30px;
+        top            : 30px;
+
+        &:hover {
+            color: $green;
+            top  : 32px;
+        }
+    }
+
+    @keyframes flicker {
+
+        0%,
+        18%,
+        22%,
+        25%,
+        35%,
+        53%,
+        57%,
+        100% {
+
+            text-shadow:
+                0 0 4px $neon_color,
+                0 0 11px $neon_color,
+                0 0 19px $neon_color,
+                0 0 15px $neon_color,
+                0 0 20px $neon_color,
+                0 0 20px $neon_color,
+                0 0 20px $neon_color,
+                0 0 20px $neon_color;
+
+        }
+
+        20%,
+        30%,
+        55% {
+            text-shadow:
+                0 0 4px #fff,
+                0 0 11px #fff,
+                0 0 19px #fff,
+                0 0 40px #fff,
+                0 0 20px #fff,
+                0 0 20px #fff,
+                0 0 20px #fff,
+                0 0 20px #fff;
+        }
+    }
+}
+
+.gameDashboard {
+
+
+
+    border: 2px solid $green;
+
+
+    position      : absolute;
+    pointer-events: none;
+    border-radius : 10px;
+
+    &>* {
+        pointer-events: auto;
+        font-family   : 'Risque', cursive;
+
+    }
+
+    button {
+        display         : flex;
+        justify-content : center;
+        align-items     : center;
+        box-sizing      : border-box;
+        appearance      : none;
+        background-color: transparent;
+        border          : 2px solid $main_color;
+        border-radius   : 20px;
+        color           : $main_color;
+        cursor          : pointer;
+        display         : flex;
+        align-self      : center;
+        text-decoration : none;
+        text-align      : center;
+        font-weight     : 700;
+        margin          : 10px;
+        width           : 40px;
+        height          : 40px;
+
+
+        &:focus {
+            outline: 0;
+        }
+
+        &:hover {
+            color: #fff;
+        }
+
+        transition: box-shadow 300ms ease-in-out,
+        color 300ms ease-in-out;
+
+        &:hover {
+            box-shadow: 0 0 40px 40px $main_color inset;
+        }
+    }
+
+
+
+    .messageContainer {
+        position: absolute;
+
+        /* Center a message */
+        top      : 50%;
+        left     : 50%;
+        transform: translateX(-50%) translateY(-50%);
+
+        width          : 30%;
+        display        : flex;
+        flex-direction : column;
+        justify-content: center;
+        align-items    : center;
+        border         : 2px solid;
+        border-radius  : 10px;
+        visibility     : hidden;
+    }
+
+    .start {
+        color           : hsl(223, 85%, 40%);
+        background-color: hsla(223, 85%, 40%, 0.337);
+        border-color    : hsl(223, 85%, 40%);
+
+        button {
+            border       : 2px solid hsl(223, 85%, 40%);
+            border-radius: 20px;
+            color        : hsl(223, 85%, 40%);
+
+            &:hover {
+                box-shadow: 0 0 40px 40px hsl(223, 85%, 40%) inset;
+                color     : #fff;
+            }
+        }
+
+    }
+
+    .lose {
+        color           : hsl(0, 100%, 30%);
+        background-color: hsla(0, 85%, 40%, 0.337);
+        border-color    : hsl(0, 100%, 30%);
+
+        button {
+            border       : 2px solid hsl(0, 100%, 30%);
+            border-radius: 20px;
+            color        : hsl(0, 100%, 30%);
+
+            &:hover {
+                box-shadow: 0 0 40px 40px hsl(0, 100%, 30%) inset;
+                color     : #fff;
+            }
+        }
+    }
+
+    .win {
+        color           : rgb(63, 252, 0);
+        background-color: rgba(49, 112, 75, 0.823);
+        border-color    : #0dff00;
+
+        button {
+            border       : 2px solid rgb(63, 252, 0);
+            border-radius: 20px;
+            color        : rgb(63, 252, 0);
+
+            &:hover {
+                box-shadow: 0 0 40px 40px rgb(63, 252, 0) inset;
+                color     : #fff;
+            }
+        }
+    }
+
+    .pause {
+        color           : rgb(73, 73, 73);
+        background-color: rgba(255, 255, 255, 0.823);
+        border-color    : #949494;
+    }
+
+    .buttons {
+        position      : absolute;
+        bottom        : 15px;
+        left          : 15px;
+        display       : flex;
+        flex-direction: column;
+
+
+    }
+
+    .gunSlot {
+        position: absolute;
+        bottom  : 10px;
+        right   : 150px;
+        border  : 2px solid $main_color;
+        padding : 5px;
+        width   : 40px;
+        height  : 40px;
+    }
+
+    .waveMessageContainer {
+        position   : absolute;
+        /* Center a message */
+        top        : 20%;
+        left       : 50%;
+        transform  : translateX(-50%) translateY(-50%);
+        user-select: none;
+
+        h3 {
+            user-select       : none;
+            color             : #fafafa;
+            font-size         : 2em;
+            transition        : opacity 3s;
+            -webkit-transition: opacity 3s;
+            opacity           : 0;
+
+            &.disappear {
+                opacity: 0;
+            }
+
+            &.appear {
+                opacity: 1;
+            }
+        }
+
+    }
+
+
+}
+
+.gameInstructions {
+    img {
+        padding: 0 30px;
+        width  : 100%;
+    }
+
+
+    margin-bottom: 40px;
+}
