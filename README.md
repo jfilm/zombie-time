@@ -4,7 +4,7 @@
 
 Welcome to Zombie Time! This is a web browser-based game developed for a week long [Mintbean](https://tinyurl.com/yhbpr783) hackathon.
 
-![screenshot](src/assets/images/landing/screenshot.png)
+![screenshot](src/assets/images/landing/screenshot2.png)
 
 Zombie Time was developed without any major frameworks, just vanilla JavaScript. The goal of the project was to see what kind of game we could build in a week without any kind of game engine to rely on.
 
@@ -36,7 +36,7 @@ npm run start
 
 ## Live Site
 
-[![Live Site](src/assets/images/landing/screenshot2.png)](https://beidah.github.io/zombie-time/)
+[![Live Site](src/assets/images/game-instructions/game-instructions.svg)](https://beidah.github.io/zombie-time/)
 
 ---
 
