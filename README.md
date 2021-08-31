@@ -36,7 +36,7 @@ npm run start
 
 ## Live Site
 
-[![Live Site](src/assets/images/landing/screenshot2.png)](https://beidah.github.io/zombie-time/)
+[![Live Site](src/assets/images/landing/screenshot2.png)](https://jfilm.github.io/zombie-time/)
 
 ---
 
