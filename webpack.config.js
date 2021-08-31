@@ -56,11 +56,12 @@ module.exports = {
     ],
   },
   plugins: [
-    new HtmlWebpackPlugin({ template: './src/index.html', minify: false }),
+    new HtmlWebpackPlugin({ template: './src/index.html', minify: false, chunks: ['index'] }),
     new HtmlWebpackPlugin({
       template: './src/game.html',
       minify: false,
       filename: 'game.html',
+      chunks: ['game']
     }),
     new CopyWebpackPlugin({
       patterns: [{ from: 'src/assets', to: 'assets' }],

@@ -1,8 +1,9 @@
 import { bigZombie, Enemy, fastZombie, zombie } from "../Entities/Enemy";
-import { healthPickup, shotgunPickup, pistolPickup } from "../Entities/Pickups";
+import { healthPickup, shotgunPickup, pistolPickup, riflePickup } from "../Entities/Pickups";
 import { Point2d } from "../Entities/Point2d";
 import { randomInt } from "../utils";
 import { RandomTable } from "./RandomTable";
+
 
 // Feel free to rebalance these tables
 const defaultTable = new RandomTable()
@@ -12,6 +13,7 @@ const defaultTable = new RandomTable()
 
 const strongerTable = new RandomTable()
   .addItem(10, { pickup: healthPickup })
+  .addItem(5, { pickup: riflePickup })
   .addItem(5, { pickup: shotgunPickup })
   .addItem(5, { pickup: pistolPickup })
   .addItem(20, { enemy: zombie })
@@ -21,6 +23,7 @@ const strongerTable = new RandomTable()
 const strongestTable = new RandomTable()
   .addItem(10, { pickup: healthPickup })
   .addItem(5, { pickup: shotgunPickup })
+  .addItem(5, { pickup: riflePickup })
   .addItem(5, { pickup: pistolPickup })
   .addItem(25, { enemy: zombie })
   .addItem(15, { enemy: fastZombie })
@@ -32,6 +35,9 @@ export class Wave {
     this.maxEnemies = maxEnemies;
     this.maxPickups = maxPickups;
     this.spawnTable = spawnTable;
+
+
+
   }
 
   getSpawn() {
@@ -122,7 +128,16 @@ export class WaveSet {
   }
 
   nextWave() {
+
     this.waveCounter++;
+    if (this.waveCounter < this.waves.length) {
+      document.dispatchEvent(new CustomEvent("notification", {
+        detail: {
+          waveNumber: this.waveCounter + 1
+        }
+      }))
+    }
+
 
     // Set spawning off for 8 seconds
     this.canSpawn = false;

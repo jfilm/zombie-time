@@ -37,6 +37,8 @@ class Game {
     //Start playing background music when the new game is created. 
     //Feel free to disable it by commenting
     // backgroundMusic.play()
+
+
   }
 
 
@@ -107,7 +109,7 @@ class Game {
     const wave = this.waves.waveCounter + 1;
     // console.log(this.waves.waveCounter);
     const maxWaves = this.waves.length;
-    ctx.font = "16px sans-serif"
+    ctx.font = "16px Risque"
     ctx.fillStyle = "black";
     ctx.fillText(`Wave ${wave}/${maxWaves}`, 10, 20)
 

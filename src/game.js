@@ -84,12 +84,24 @@ function init() {
   // Start up game
   const game = new GameManager(viewport, ctx);
 
+
   viewport.addEventListener('click', (event) => game.mouseClick(event));
   viewport.addEventListener('mousedown', (event) => game.mouseDown(event));
   document.addEventListener('mouseup', (event) => game.mouseUp(event));
   viewport.addEventListener('mousemove', (event) => game.mouseMove(event));
   document.addEventListener('keydown', (event) => game.keyDown(event));
   document.addEventListener('keyup', (event) => game.keyUp(event));
+  document.addEventListener('notification', (e) => {
+
+    document.querySelector('.waveMessage').textContent = "Wave " + e.detail.waveNumber;
+    document.querySelector('.waveMessage').className = 'appear waveMessage'
+
+    setTimeout(() => {
+      document.querySelector('.waveMessage').className = 'disappear waveMessage'
+
+    }, 3000)
+
+  })
 
   //Handle pause button
   const pauseButton = document.querySelector('.pauseButton');
@@ -114,6 +126,11 @@ function init() {
   //Handle a start button
   const startButton = document.querySelector('.startButton');
   startButton.addEventListener('click', () => {
+    document.dispatchEvent(new CustomEvent("notification", {
+      detail: {
+        waveNumber: 1
+      }
+    }))
     game.state = gameState.RUNNING;
   });
 
